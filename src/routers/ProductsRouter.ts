@@ -23,4 +23,4 @@ productsRouter.post('/registernewproduct', productsController.registerNewProduct
 productsRouter.post('/:id/editproduct', productsController.updateProductInfoById)
 productsRouter.delete('/:id/deleteproduct', productsController.deleteProductById)
 productsRouter.get('/:id', productsController.getProductById)
-productsRouter.get('/products/search?q=', productsController.getProductsByNameLike)
+productsRouter.get('/search?q=', productsController.getProductsByNameLike)

@@ -18,7 +18,7 @@ const cartsController = new CartsController(
     ),
 )
 
-cartsRouter.get('/cart', cartsController.getCartByUser)
-cartsRouter.post('/cart', cartsController.addProductToCart)
-cartsRouter.post('/cart/updatecart', cartsController.updateProductAmountInCart)
-cartsRouter.delete('/cart/deductproduct', cartsController.deductProductFromCart)
+cartsRouter.get('/', cartsController.getCartByUser)
+cartsRouter.post('/', cartsController.addProductToCart)
+cartsRouter.post('/updatecart', cartsController.updateProductAmountInCart)
+cartsRouter.delete('/deductproduct', cartsController.deductProductFromCart)

@@ -20,8 +20,8 @@ const ordersController = new OrdersController(
     )
 )
 
-ordersRouter.post('/orders/', ordersController.createNewOrder)
-ordersRouter.post('/orders/:id', ordersController.updateOrderById)
-ordersRouter.get('/orders/:id', ordersController.getOrderById)
-ordersRouter.get('/orders/user/:id', ordersController.getOrderById)
-ordersRouter.delete('/orders/:id', ordersController.deleteOrderById)
+ordersRouter.post('/', ordersController.createNewOrder)
+ordersRouter.post('/:id', ordersController.updateOrderById)
+ordersRouter.get('/:id', ordersController.getOrderById)
+ordersRouter.get('/user/:id', ordersController.getOrderById)
+ordersRouter.delete('/:id', ordersController.deleteOrderById)
