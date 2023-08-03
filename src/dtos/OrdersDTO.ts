@@ -2,7 +2,9 @@ import { BadRequestError } from "../errors/BadRequestError";
 import { orderDB } from "../types";
 
 export interface CreateNewOrderInput {
-    userToken: string
+    userToken: string,
+    productsId: string,
+    productsAmount: number
 }
 
 export interface CreateNewOrderOutput {
@@ -46,19 +48,27 @@ export interface DeleteOrderOutput {
 
 export class OrdersDTO {
 
-    public createNewOrderInput(userToken: unknown): CreateNewOrderInput {
+    public createNewOrderInput(userToken: unknown, productsId: unknown, productsAmount: unknown): CreateNewOrderInput {
         if (typeof userToken !== "string") {
             throw new BadRequestError("O token do usuário para registrar nova compra deve ser do tipo 'string'.")
         }
 
-        const dto: CreateNewOrderInput = { userToken }
+        if (typeof productsId !== "string") {
+            throw new BadRequestError("O id dos produtos da nova compra deve ser do tipo array de 'string'.")
+        }
+
+        if (typeof productsAmount !== "number") {
+            throw new BadRequestError("A quantidade dos produtos da nova compra devem ser do tipo array de 'number'")
+        }
+
+        const dto: CreateNewOrderInput = { userToken, productsId, productsAmount }
         return dto
     }
 
     public createNewOrderOutput(orderRegistered: orderDB): CreateNewOrderOutput {
 
         const dto: CreateNewOrderOutput = {
-            message: `Compra de id ${orderRegistered.id} registrada com sucesso.`
+            message: `Compra de id ${orderRegistered.id} foi registrada com sucesso.`
         }
 
         return dto

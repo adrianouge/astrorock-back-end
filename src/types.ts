@@ -30,15 +30,15 @@ export interface userUpdatedDB {
 export interface cartDB {
     cartOwner: string,
     productId: string,
-    productAmount: number
+    productsAmount: number
 }
 
 export interface orderDB {
     id: string,
     status: string,
     userId: string,
-    productsId: string[],
-    productsAmount: number[],
+    productsId: string,
+    productsAmount: string,
     purchaseDate: string,
     paid: number,
     paymentDate: string

@@ -26,9 +26,9 @@ export class ProductsBusiness {
         private idGenerator: IdGenerator
     ) { }
 
-    public registerNewProduct = async (userToken: string, input: RegisterNewProductInput): Promise<RegisterNewProductOutput> => {
+    public registerNewProduct = async (input: RegisterNewProductInput): Promise<RegisterNewProductOutput> => {
 
-        const { name, description, price, amountInStock } = input
+        const { userToken, name, description, price, amountInStock } = input
 
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
@@ -63,8 +63,8 @@ export class ProductsBusiness {
         return output
     }
 
-    public getProductById = async (userToken: string, input: GetProductByIdInput): Promise<GetProductByIdOutput> => {
-        const { idSearched } = input
+    public getProductById = async (input: GetProductByIdInput): Promise<GetProductByIdOutput> => {
+        const { userToken, idSearched } = input
 
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {

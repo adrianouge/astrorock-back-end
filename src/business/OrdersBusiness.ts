@@ -1,8 +1,12 @@
 import { CartsDatabase } from "../database/CartsDatabase";
 import { OrdersDatabase } from "../database/OrdersDatabase";
-import { ProductsDatabase } from "../database/ProductsDatabase";
-import { DeleteOrderInput, GetOrderByIdInput, GetOrdersByUserInput, OrdersDTO, UpdateOrderInput } from "../dtos/OrdersDTO";
-import { CreateNewOrderInput } from "../dtos/UsersDTO";
+import {
+    CreateNewOrderInput, CreateNewOrderOutput,
+    DeleteOrderInput, DeleteOrderOutput,
+    GetOrderByIdInput, GetOrdersByUserInput,
+    OrdersDTO,
+    UpdateOrderInput, UpdateOrderOutput
+} from "../dtos/OrdersDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
@@ -32,8 +36,8 @@ export class OrdersBusiness {
         let userCart: undefined[] | cartDB[] = await this.cartsDatabase.getCartByOwner(userPayload.id)
 
         let cartOwner = ``
-        let productsInCart: string[] = []
-        let productsAmount: number[] = []
+        let productsInCart: string = ""
+        let productsAmount: string = ""
 
         userCart.forEach(function (i) {
             if (i === undefined) {
@@ -41,8 +45,8 @@ export class OrdersBusiness {
             }
             else {
                 cartOwner = i.cartOwner
-                productsInCart.push(i.productId)
-                productsAmount.push(i.productAmount)
+                productsInCart = `${productsInCart}` + `${i.productId}`
+                productsAmount = `${productsAmount}` + `${i.productsAmount}`
             }
         })
 
@@ -63,7 +67,7 @@ export class OrdersBusiness {
 
         await this.ordersDatabase.createNewOrder(newOrder)
 
-        const output = this.ordersDTO.createNewOrderOutput(newOrder)
+        const output: CreateNewOrderOutput = this.ordersDTO.createNewOrderOutput(newOrder)
         return output
     }
 
@@ -112,7 +116,7 @@ export class OrdersBusiness {
     }
 
     public updateOrderById = async (input: UpdateOrderInput) => {
-        const { orderId, paidStatus} = input
+        const { orderId, paidStatus } = input
 
         const orderToUpdate = await this.ordersDatabase.getOrderById(orderId)
 
@@ -120,7 +124,7 @@ export class OrdersBusiness {
             throw new NotFoundError("")
         }
 
-        const orderUpdated:orderDB = {
+        const orderUpdated: orderDB = {
             id: orderToUpdate.id,
             status: "Pago",
             userId: orderToUpdate.id,
@@ -133,17 +137,17 @@ export class OrdersBusiness {
 
         await this.ordersDatabase.updateOrder(orderUpdated)
 
-        const output = this.ordersDTO.updateOrderOutput(orderUpdated)
+        const output: UpdateOrderOutput = this.ordersDTO.updateOrderOutput(orderUpdated)
 
         return output
     }
 
     public deleteOrderById = async (input: DeleteOrderInput) => {
-        const {userToken, orderToDeleteId} = input
+        const { userToken, orderToDeleteId } = input
 
         const userPayload = this.tokenManager.getPayload(userToken)
 
-        if(!userPayload) {
+        if (!userPayload) {
             throw new BadRequestError("Token do usuário inválido para deletar compra.")
         }
 
@@ -159,8 +163,8 @@ export class OrdersBusiness {
 
         await this.ordersDatabase.deleteOrder(orderToDelete.id)
 
-        const output = this.ordersDTO.deleteOrderOutput(orderToDelete)
-        
+        const output: DeleteOrderOutput = this.ordersDTO.deleteOrderOutput(orderToDelete)
+
         return output
     }
 }

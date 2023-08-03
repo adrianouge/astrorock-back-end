@@ -1,5 +1,10 @@
 import { Request, Response } from 'express';
-import { CreateNewUserInput, UsersDTO } from '../dtos/UsersDTO';
+import {
+    CreateNewUserInput, CreateNewUserOutput,
+    GetUserByIdInput, GetUserByIdOutput,
+    LoginUserInput, LoginUserOutput,
+    UsersDTO
+} from '../dtos/UsersDTO';
 import { UsersBusiness } from '../business/UsersBusiness';
 import { BaseError } from '../errors/BaseError';
 
@@ -16,7 +21,7 @@ export class UsersController {
             const { name, email, password } = req.body
 
             const input: CreateNewUserInput = this.usersDTO.createNewUserInput(name, email, password)
-            const output = await this.usersBusiness.createNewUser(input)
+            const output: CreateNewUserOutput = await this.usersBusiness.createNewUser(input)
 
             res.status(200).send(output)
         }
@@ -38,8 +43,8 @@ export class UsersController {
         try {
             const { email, password } = req.body
 
-            const input = this.usersDTO.loginUserInput(email, password)
-            const output = await this.usersBusiness.loginUser(input)
+            const input: LoginUserInput = this.usersDTO.loginUserInput(email, password)
+            const output: LoginUserOutput = await this.usersBusiness.loginUser(input)
 
             res.status(200).send(output)
         }
@@ -62,8 +67,8 @@ export class UsersController {
             const userToken = req.headers.authorization
             const { userId } = req.body
 
-            const input = this.usersDTO.getUserByIdInput(userToken, userId)
-            const output = await this.usersBusiness.getUserById(input)
+            const input: GetUserByIdInput = this.usersDTO.getUserByIdInput(userToken, userId)
+            const output: GetUserByIdOutput = await this.usersBusiness.getUserById(input)
 
             res.status(200).send(output)
         }

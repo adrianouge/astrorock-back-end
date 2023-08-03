@@ -143,7 +143,7 @@ export class UsersBusiness {
             throw new UnexpectedError("Houve um erro inesperado, e-mail não foi atualizado.")
         }
 
-        const output: ChangeUsersPasswordOutput = this.usersDTO.changeUsersEmailOutput(updatedUser)
+        const output: ChangeUsersEmailOutput = this.usersDTO.changeUsersEmailOutput(updatedUser)
         return output
     }
 
@@ -179,13 +179,13 @@ export class UsersBusiness {
 
         const getPayload = this.tokenManager.getPayload(userToken)
 
-        if(!getPayload) {
+        if (!getPayload) {
             throw new BadRequestError("Token do usuário inválido.")
         }
 
         const userToDelete = await this.usersDatabase.getUserById(getPayload.id)
 
-        if(!userToDelete) {
+        if (!userToDelete) {
             throw new NotFoundError("Conta do usuário a ser deletada não foi encontrada.")
         }
 

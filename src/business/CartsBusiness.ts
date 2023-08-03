@@ -39,7 +39,7 @@ export class CartsBusiness {
         const usersCartProductAdded: cartDB = {
             cartOwner: userPayload.id,
             productId,
-            productAmount
+            productsAmount: productAmount
         }
 
         await this.cartsDatabase.addProductToCart(usersCartProductAdded)
@@ -64,7 +64,7 @@ export class CartsBusiness {
         const newProductAmountInCart: cartDB = {
             cartOwner: userPayload.id,
             productId: productToUpdateAmount.id,
-            productAmount: newProductAmount
+            productsAmount: newProductAmount
         }
 
         await this.cartsDatabase.updateCart(newProductAmountInCart)

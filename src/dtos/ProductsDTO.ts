@@ -33,10 +33,6 @@ export interface GetProductsByNameLikeOutput {
     productsFound: productDB[]
 }
 
-export interface GetAllProductsInput {
-
-}
-
 export interface GetAllProductsOutput {
     message: string,
     allProducts: productDB[]
@@ -162,8 +158,6 @@ export class ProductsDTO {
         }
         return dto
     }
-
-    public getAllProductsInput() { }
 
     public getAllProductsOutput(allProducts: productDB[]): GetAllProductsOutput {
 
