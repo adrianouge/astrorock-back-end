@@ -4,13 +4,11 @@ import { userDB } from '../../src/types'
 export class UsersDatabaseMock extends BaseDatabase {
     public static TABLE_USERS = "users"
     dbConnection = BaseDatabase.connection
-
     public registerNewUser = async (newUserMock: userDB): Promise<string | undefined> => {
         if (newUserMock.name !== "" && newUserMock.createdAt !== "") {
             return `${newUserMock.name}, sua conta foi criada com sucesso em ${newUserMock.createdAt}`
         }
     }
-
     public getUserById = async (idMock: string): Promise<userDB | undefined> => {
         const userMock: userDB = {
             id: "user-id-mock",
@@ -30,7 +28,6 @@ export class UsersDatabaseMock extends BaseDatabase {
             return undefined
         }
     }
-
     public getUserByEmail = async (emailMock: string): Promise<userDB | undefined> => {
         const userMock: userDB = {
             id: "user-id-mock",
@@ -50,7 +47,6 @@ export class UsersDatabaseMock extends BaseDatabase {
             return undefined
         }
     }
-
     public loginUser = async (emailMock: string, passwordMock: string): Promise<userDB | undefined> => {
         const userMock: userDB = {
             id: "user-id-mock",
@@ -70,7 +66,6 @@ export class UsersDatabaseMock extends BaseDatabase {
             return undefined
         }
     }
-
     public changeEmail = async (userMock: userDB, newEmailMock: string): Promise<userDB> => {
         const userMockUpdated: userDB = {
             id: userMock.id,
@@ -84,7 +79,6 @@ export class UsersDatabaseMock extends BaseDatabase {
 
         return userMockUpdated
     }
-
     public changePassword = async (userMock: userDB, newPassword: string): Promise<userDB> => {
         const userMockUpdated: userDB = {
             id: userMock.id,
@@ -98,7 +92,6 @@ export class UsersDatabaseMock extends BaseDatabase {
 
         return userMockUpdated
     }
-
     public deleteUser = async (idMock: string): Promise<string | undefined> => {
         if (idMock === "id-mock") {
             return "Usuário de id 'id-mock' foi deletado com sucesso."
