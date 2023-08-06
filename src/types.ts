@@ -30,7 +30,7 @@ export interface userUpdatedDB {
 export interface cartDB {
     cartOwner: string,
     productId: string,
-    productsAmount: number
+    productsAmount: string
 }
 
 export interface orderDB {

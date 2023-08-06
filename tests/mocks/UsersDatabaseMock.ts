@@ -1,9 +1,6 @@
-import { BaseDatabase } from '../../src/database/BaseDatabase'
 import { userDB } from '../../src/types'
 
-export class UsersDatabaseMock extends BaseDatabase {
-    public static TABLE_USERS = "users"
-    dbConnection = BaseDatabase.connection
+export class UsersDatabaseMock {
     public registerNewUser = async (newUserMock: userDB): Promise<string | undefined> => {
         if (newUserMock.name !== "" && newUserMock.createdAt !== "") {
             return `${newUserMock.name}, sua conta foi criada com sucesso em ${newUserMock.createdAt}`
