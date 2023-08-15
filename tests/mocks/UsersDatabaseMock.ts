@@ -1,10 +1,10 @@
+import { BaseDatabase } from '../../src/database/BaseDatabase'
 import { userDB } from '../../src/types'
 
-export class UsersDatabaseMock {
-    public registerNewUser = async (newUserMock: userDB): Promise<string | undefined> => {
-        if (newUserMock.name !== "" && newUserMock.createdAt !== "") {
-            return `${newUserMock.name}, sua conta foi criada com sucesso em ${newUserMock.createdAt}`
-        }
+export class UsersDatabaseMock extends BaseDatabase {
+    public static TABLE_USERS = "users"
+    dbConnection = BaseDatabase.connection
+    public registerNewUser = async (): Promise<void> => {
     }
     public getUserById = async (idMock: string): Promise<userDB | undefined> => {
         const userMock: userDB = {
@@ -63,35 +63,10 @@ export class UsersDatabaseMock {
             return undefined
         }
     }
-    public changeEmail = async (userMock: userDB, newEmailMock: string): Promise<userDB> => {
-        const userMockUpdated: userDB = {
-            id: userMock.id,
-            name: userMock.name,
-            email: newEmailMock,
-            password: userMock.password,
-            role: userMock.role,
-            createdAt: userMock.createdAt,
-            updatedAt: "data mock"
-        }
-
-        return userMockUpdated
+    public changeEmail = async (userMock: userDB, newEmailMock: string): Promise<void> => {
     }
-    public changePassword = async (userMock: userDB, newPassword: string): Promise<userDB> => {
-        const userMockUpdated: userDB = {
-            id: userMock.id,
-            name: userMock.name,
-            email: userMock.email,
-            password: newPassword,
-            role: userMock.role,
-            createdAt: userMock.createdAt,
-            updatedAt: "data mock"
-        }
-
-        return userMockUpdated
+    public changePassword = async (userMock: userDB, newPassword: string): Promise<void> => {
     }
-    public deleteUser = async (idMock: string): Promise<string | undefined> => {
-        if (idMock === "id-mock") {
-            return "Usuário de id 'id-mock' foi deletado com sucesso."
-        }
+    public deleteUser = async (userToDeleteMock: userDB): Promise<void> => {
     }
 }

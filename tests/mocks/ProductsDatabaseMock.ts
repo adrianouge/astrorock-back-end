@@ -1,6 +1,9 @@
+import { BaseDatabase } from "../../src/database/BaseDatabase";
 import { productDB } from "../../src/types";
 
-export class ProductsDatabase {
+export class ProductsDatabase extends BaseDatabase{
+    public static TABLE_PRODUCTS = 'products'
+    dbConnection = BaseDatabase.connection
     public registerNewProduct = (newProduct: productDB): String => {
         return `${newProduct.name} foi registrado no banco de dados com sucesso em ${newProduct.createdAt}.`
     }

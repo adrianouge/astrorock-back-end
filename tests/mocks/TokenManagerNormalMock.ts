@@ -4,19 +4,22 @@ export interface TokenPayLoad {
     role: string
 }
 
-export class TokenManagerMock {
+export class TokenManagerNormalMock {
     public createToken = (payload: TokenPayLoad): string => {
         return "token-mock"
     }
 
-    public getPayload = (userTokenMock: string): TokenPayLoad | undefined => {
-        if (userTokenMock === "token-mock") {
+    public getPayload = (userTokenMock: string): TokenPayLoad | null => {
+        try {
             const payLoadMock: TokenPayLoad = {
-                id: "id-mock",
-                name: "Nome-mock",
-                role: "mock"
+                id: "user-id-mock",
+                name: "Usuário mock",
+                role: "normal"
             }
             return payLoadMock
+        }
+        catch (error) {
+            return null
         }
     }
 }

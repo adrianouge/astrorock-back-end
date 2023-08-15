@@ -9,7 +9,6 @@ import {
     DeleteUserInput, DeleteUserOutput
 } from "../dtos/UsersDTO";
 import { userDB } from "../types";
-import { User } from "../models/User";
 import { IdGenerator } from "../services/IdGenerator";
 import { HashManager } from "../services/HashManager";
 import { TokenManager, TokenPayLoad } from "../services/TokenManager";
@@ -77,15 +76,15 @@ export class UsersBusiness {
         }
 
         const userToken = this.tokenManager.createToken(payload)
-        const userLoggedIn: User = new User(
-            userInfoMatched.id,
-            userInfoMatched.name,
-            userInfoMatched.email,
-            userInfoMatched.password,
-            userInfoMatched.role,
-            userInfoMatched.createdAt,
-            userInfoMatched.updatedAt,
-        )
+        const userLoggedIn: userDB = {
+            id: userInfoMatched.id,
+            name: userInfoMatched.name,
+            email: userInfoMatched.email,
+            password: userInfoMatched.password,
+            role: userInfoMatched.role,
+            createdAt: userInfoMatched.createdAt,
+            updatedAt: userInfoMatched.updatedAt
+        }
 
         const output: LoginUserOutput = this.usersDTO.loginUserOutput(userLoggedIn, userToken)
         return output
@@ -137,10 +136,14 @@ export class UsersBusiness {
 
         await this.usersDatabase.changeEmail(userToUpdate, newEmail)
 
-        const updatedUser = await this.usersDatabase.getUserByEmail(newEmail)
-
-        if (!updatedUser) {
-            throw new UnexpectedError("Houve um erro inesperado, e-mail não foi atualizado.")
+        const updatedUser: userDB = {
+            id: userToUpdate.id,
+            name: userToUpdate.name,
+            email: newEmail,
+            password: userToUpdate.password,
+            role: userToUpdate.role,
+            createdAt: userToUpdate.createdAt,
+            updatedAt: userToUpdate.updatedAt
         }
 
         const output: ChangeUsersEmailOutput = this.usersDTO.changeUsersEmailOutput(updatedUser)
@@ -164,13 +167,17 @@ export class UsersBusiness {
 
         await this.usersDatabase.changePassword(userChangingPassword, newPassword)
 
-        const userUpdated = await this.usersDatabase.loginUser(userChangingPassword.email, newPassword)
-
-        if (!userUpdated) {
-            throw new UnexpectedError("Ocorreu um erro inesperado e a senha não foi trocada.")
+        const updatedUser: userDB = {
+            id: userChangingPassword.id,
+            name: userChangingPassword.name,
+            email: userChangingPassword.email,
+            password: newPassword,
+            role: userChangingPassword.role,
+            createdAt: userChangingPassword.createdAt,
+            updatedAt: userChangingPassword.updatedAt
         }
 
-        const output: ChangeUsersPasswordOutput = this.usersDTO.changeUsersPasswordOutput(userUpdated)
+        const output: ChangeUsersPasswordOutput = this.usersDTO.changeUsersPasswordOutput(updatedUser)
         return output
     }
 
