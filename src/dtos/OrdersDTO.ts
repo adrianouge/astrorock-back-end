@@ -4,7 +4,7 @@ import { orderDB } from "../types";
 export interface CreateNewOrderInput {
     userToken: string,
     productsId: string,
-    productsAmount: number
+    productsAmount: string
 }
 
 export interface CreateNewOrderOutput {
@@ -57,8 +57,8 @@ export class OrdersDTO {
             throw new BadRequestError("O id dos produtos da nova compra deve ser do tipo array de 'string'.")
         }
 
-        if (typeof productsAmount !== "number") {
-            throw new BadRequestError("A quantidade dos produtos da nova compra devem ser do tipo array de 'number'")
+        if (typeof productsAmount !== "string") {
+            throw new BadRequestError("A quantidade dos produtos da nova compra devem ser do tipo array de 'string'")
         }
 
         const dto: CreateNewOrderInput = { userToken, productsId, productsAmount }

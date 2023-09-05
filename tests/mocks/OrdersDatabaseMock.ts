@@ -1,15 +1,21 @@
+import { BaseDatabase } from "../../src/database/BaseDatabase";
 import { orderDB } from "../../src/types";
 
-export class OrdersDatabaseMock {
-    public createNewOrder = (newOrderMock: orderDB) => {
-        return `A compra feita pelo usuário de id '${newOrderMock.userId}' foi efetuada com sucesso em ${newOrderMock.purchaseDate}. Nela, contém: ${newOrderMock.productsAmount}, respectivamente, dos produtos de id ${newOrderMock.productsId}.`
+export class OrdersDatabaseMock extends BaseDatabase {
+    public static TABLE_ORDERS = 'orders'
+    public static TABLE_USERS = 'users'
+    public static TABLE_PRODUCTS = 'products'
+    public static TABLE_CARTS = 'carts'
+
+    dbConnection = BaseDatabase.connection
+    public createNewOrder = async (newOrderMock: orderDB): Promise<void> => {
     }
 
-    public getOrderById = (orderIdMock: string): orderDB | undefined => {
+    public getOrderById = async (orderIdMock: string): Promise<orderDB | undefined> => {
         const foundOrderMock: orderDB = {
             id: 'order-id-mock',
             status: 'status-mock',
-            userId: 'id-mock',
+            userId: 'usuario-id-mock',
             productsId: 'produto-id-mock, produto2-id-mock',
             productsAmount: '1, 1',
             purchaseDate: 'data-mock',
@@ -22,7 +28,7 @@ export class OrdersDatabaseMock {
         }
     }
 
-    public getOrdersByUser = (userIdMock: string): orderDB[] | undefined => {
+    public getOrdersByUser = async (userIdMock: string): Promise<orderDB[] | undefined[]> => {
         const foundOrderMock: orderDB = {
             id: 'order-id-mock',
             status: 'status-mock',
@@ -44,16 +50,18 @@ export class OrdersDatabaseMock {
             paymentDate: 'data-mock'
         }
         const ordersFoundByUser: orderDB[] = [foundOrderMock, foundOrder2Mock]
-        if (userIdMock === 'id-mock') {
+        if (userIdMock === 'usuario-id-mock') {
             return ordersFoundByUser
+        }
+        else {
+            let noOrders: undefined[] = []
+            return noOrders
         }
     }
 
-    public updateOrder = (updatedOrderMock: orderDB): string => {
-        return `A compra de id '${updatedOrderMock.id}' foi atualizada com sucesso.`
+    public updateOrder = async (updatedOrderMock: orderDB): Promise<void> => {
     }
 
-    public deleteOrder = (orderToDeleteMock: string): string => {
-        return `A compra de id '${orderToDeleteMock}' foi deletada com sucesso.`
+    public deleteOrder = async (orderToDeleteMock: string): Promise<void> => {
     }
 } 

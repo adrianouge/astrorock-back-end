@@ -15,7 +15,7 @@ describe("getUserById", () => {
     )
     test("deve retornar usuário encontrado por id", async () => {
         const userTokenMock = "token-mock"
-        const userIdMock = "user-id-mock"
+        const userIdMock = "usuario-id-mock"
         const inputMock: GetUserByIdInput = {
             userToken: userTokenMock,
             idSearched: userIdMock

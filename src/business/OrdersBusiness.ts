@@ -131,7 +131,7 @@ export class OrdersBusiness {
             productsId: orderToUpdate.productsId,
             productsAmount: orderToUpdate.productsAmount,
             purchaseDate: orderToUpdate.purchaseDate,
-            paid: 1,
+            paid: paidStatus,
             paymentDate: new Date().toISOString()
         }
 

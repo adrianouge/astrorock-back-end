@@ -61,25 +61,20 @@ export interface UpdateOrderOutput {
 }
 
 export class UsersDTO {
-
     public createNewUserInput(
         name: unknown,
         email: unknown,
         password: unknown
     ): CreateNewUserInput {
-
         if (typeof name !== "string") {
             throw new BadRequestError("Nome do usuário deve ser do tipo string.")
         }
-
         if (typeof email !== "string") {
             throw new BadRequestError("Email do usuário deve ser do tipo string.")
         }
-
         if (typeof password !== "string") {
             throw new BadRequestError("Password do usuário deve ser do tipo string.")
         }
-
         const dto: CreateNewUserInput = { name, email, password }
         return dto
     }

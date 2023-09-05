@@ -5,7 +5,7 @@ import { cartDB } from "../types"
 export interface AddProductToCartInput {
     userToken: string,
     productId: string,
-    productAmount: number
+    productAmount: string
 }
 
 export interface AddProductToCartOutput {
@@ -15,7 +15,7 @@ export interface AddProductToCartOutput {
 export interface UpdateProductAmountInCartInput {
     userToken: string,
     productId: string,
-    newProductAmount: number
+    newProductAmount: string
 }
 
 export interface UpdateProductAmountInCartOutput {
@@ -51,8 +51,8 @@ export class CartsDTO {
             throw new BadRequestError("O id do produto deve ser do tipo string.")
         }
 
-        if (typeof productAmount !== "number") {
-            throw new BadRequestError("A quantidade do produto deve ser do tipo number.")
+        if (typeof productAmount !== "string") {
+            throw new BadRequestError("A quantidade do produto deve ser do tipo string.")
         }
 
         const dto: AddProductToCartInput = {
@@ -62,7 +62,7 @@ export class CartsDTO {
         return dto
     }
 
-    public addProductToCartOutput(productName: string, productAmount: number): AddProductToCartOutput {
+    public addProductToCartOutput(productName: string, productAmount: string): AddProductToCartOutput {
 
         const dto: AddProductToCartOutput = {
             message: `${productAmount} ${productName} foram adicionados ao seu carrinho com sucesso.`
@@ -81,8 +81,8 @@ export class CartsDTO {
             throw new BadRequestError("O id do produto deve ser do tipo string.")
         }
 
-        if (typeof newProductAmount !== "number") {
-            throw new BadRequestError("A quantidade do produto deve ser do tipo number.")
+        if (typeof newProductAmount !== "string") {
+            throw new BadRequestError("A quantidade do produto deve ser do tipo string.")
         }
 
         const dto: UpdateProductAmountInCartInput = {
@@ -92,7 +92,7 @@ export class CartsDTO {
         return dto
     }
 
-    public updateProductAmountOutput(productName: string, newProductAmount: number): UpdateProductAmountInCartOutput {
+    public updateProductAmountOutput(productName: string, newProductAmount: string): UpdateProductAmountInCartOutput {
         const dto: UpdateProductAmountInCartOutput = {
             message: `A quantidade de ${productName} no carrinho foi alterada para ${newProductAmount}`
         }

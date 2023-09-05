@@ -18,7 +18,7 @@ export class CartsDatabase extends BaseDatabase {
 
     }
 
-    public async addProductToCart(usersCartProductAdded: cartDB) {
+    public async addProductToCart(usersCartProductAdded: cartDB): Promise<void> {
         await this.dbConnection(CartsDatabase.TABLE_CARTS).insert(usersCartProductAdded)
     }
 

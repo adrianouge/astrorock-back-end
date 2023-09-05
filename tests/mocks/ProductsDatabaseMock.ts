@@ -1,52 +1,76 @@
 import { BaseDatabase } from "../../src/database/BaseDatabase";
 import { productDB } from "../../src/types";
 
-export class ProductsDatabase extends BaseDatabase{
+export class ProductsDatabaseMock extends BaseDatabase {
     public static TABLE_PRODUCTS = 'products'
     dbConnection = BaseDatabase.connection
-    public registerNewProduct = (newProduct: productDB): String => {
-        return `${newProduct.name} foi registrado no banco de dados com sucesso em ${newProduct.createdAt}.`
+    public registerNewProduct = async (newProduct: productDB): Promise<void> => {
     }
-    public getProductById = (productIdMock: string): productDB | undefined => {
+    public getProductById = async (productIdMock: string): Promise<productDB | undefined> => {
         const productFoundMock: productDB = {
-            id: "id-mock",
-            name: "Nome mock",
+            id: "produto-id-mock",
+            name: "Produto mock",
             description: "Descrição mock",
             price: 1,
-            amountInStock: 1,
-            createdAt: "data-mock",
-            updatedAt: "nunca"
+            amount_in_stock: 1,
+            created_at: "data-mock",
+            updated_at: "nunca"
         }
-        if (productIdMock === "id-mock") {
+        if (productIdMock === "produto-id-mock") {
             return productFoundMock
         }
     }
-    public getAllProducts = (): productDB[] => {
-        const productFoundMock: productDB = {
+    public getProductByName = async (nameSearched: string): Promise<productDB | undefined> => {
+        const productsFound: productDB = {
+            id: 'product-id-mock',
+            name: 'Produto mock',
+            description: 'Descrição mock',
+            price: 1,
+            amount_in_stock: 1,
+            created_at: 'Data mock',
+            updated_at: 'Data mock'
+        }
+        if (productsFound.name === nameSearched) {
+            return productsFound
+        }
+    }
+    public getProductByNameLike = async (nameSearched: string): Promise<productDB | undefined> => {
+        const productsFound: productDB = {
+            id: 'product-id-mock',
+            name: 'Produto mock',
+            description: 'Descrição mock',
+            price: 1,
+            amount_in_stock: 1,
+            created_at: 'Data mock',
+            updated_at: 'Data mock'
+        }
+        if (productsFound.name.includes(nameSearched)) {
+            return productsFound
+        }
+    }
+    public getAllProducts = async (): Promise<productDB[]> => {
+        const allProductsMock: productDB[] = [{
             id: "id-mock",
             name: "Nome mock",
             description: "Descrição mock",
             price: 1,
-            amountInStock: 1,
-            createdAt: "data-mock",
-            updatedAt: "nunca"
-        }
-        const productFoundMock2: productDB = {
-            id: "id-mock",
-            name: "Nome mock",
+            amount_in_stock: 1,
+            created_at: "data-mock",
+            updated_at: "nunca"
+        },
+        {
+            id: "id1-mock",
+            name: "Nome1 mock",
             description: "Descrição mock",
             price: 1,
-            amountInStock: 1,
-            createdAt: "data-mock",
-            updatedAt: "nunca"
-        }
-        const allProductsMock = [productFoundMock, productFoundMock2]
+            amount_in_stock: 1,
+            created_at: "data-mock",
+            updated_at: "nunca"
+        }]
         return allProductsMock
     }
-    public updateProductById = (updatedProductMock: productDB): string => {
-        return `${updatedProductMock.name} foi atualizado com sucesso em ${updatedProductMock.updatedAt}`
+    public updateProductInfo = async (updatedProductMock: productDB): Promise<void> => {
     }
-    public deleteProductById = (productToDelete: productDB): string => {
-        return `${productToDelete.name}, de id '${productToDelete.id}, foi deletado com sucesso.`
+    public deleteProductById = async (idToDelete: string,): Promise<void> => {
     }
 }

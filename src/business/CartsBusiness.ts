@@ -31,7 +31,6 @@ export class CartsBusiness {
         }
 
         const productToAdd = await this.productsDatabase.getProductById(productId)
-
         if (!productToAdd) {
             throw new NotFoundError("Produto para adicionar ao carrinho não foi encontrado.")
         }
@@ -64,7 +63,7 @@ export class CartsBusiness {
         const newProductAmountInCart: cartDB = {
             cartOwner: userPayload.id,
             productId: productToUpdateAmount.id,
-            productsAmount: newProductAmount
+            productsAmount: newProductAmount.toString()
         }
 
         await this.cartsDatabase.updateCart(newProductAmountInCart)

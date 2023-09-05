@@ -21,11 +21,16 @@ export class ProductsController {
         try {
             const userToken = req.headers.authorization
             const { name, description, price, amountInStock } = req.body
-            const input: RegisterNewProductInput = this.productsDTO.registerNewProductInput(userToken, name, description, price, amountInStock)
+            const priceAsNumber = Number(price)
+            const amountInStockAsNumber = Number(amountInStock)
+            const input: RegisterNewProductInput = this.productsDTO.registerNewProductInput(
+                userToken,
+                name, description,
+                priceAsNumber,
+                amountInStockAsNumber)
             const output: RegisterNewProductOutput = await this.productsBusiness.registerNewProduct(input)
             res.status(200).send(output)
         }
-
         catch (error) {
             console.log(error)
             if (error instanceof BaseError) {
@@ -34,7 +39,6 @@ export class ProductsController {
             else { res.send("Um erro inesperado ocorreu.") }
         }
     }
-
     public getProductById = async (req: Request, res: Response) => {
         try {
             const userToken = req.headers.authorization
@@ -43,7 +47,6 @@ export class ProductsController {
             const output: GetProductByIdOutput = await this.productsBusiness.getProductById(input)
             res.status(200).send(output)
         }
-
         catch (error) {
             console.log(error)
             if (error instanceof BaseError) {
@@ -52,7 +55,6 @@ export class ProductsController {
             else { res.send("Um erro inesperado ocorreu.") }
         }
     }
-
     public getAllProducts = async (req: Request, res: Response) => {
         try {
             const output: GetAllProductsOutput = await this.productsBusiness.getAllProducts()
@@ -67,7 +69,6 @@ export class ProductsController {
             else { res.send("Um erro inesperado ocorreu.") }
         }
     }
-
     public getProductsByNameLike = async (req: Request, res: Response) => {
         try {
             const { termSearched } = req.body
@@ -84,7 +85,6 @@ export class ProductsController {
             else { res.send("Um erro inesperado ocorreu.") }
         }
     }
-
     public updateProductInfoById = async (req: Request, res: Response) => {
         try {
             const userToken = req.headers.authorization
@@ -102,7 +102,6 @@ export class ProductsController {
             else { res.send("Um erro inesperado ocorreu.") }
         }
     }
-
     public deleteProductById = async (req: Request, res: Response) => {
         try {
             const userToken = req.headers.authorization

@@ -13,14 +13,12 @@ export class UsersDatabaseMock extends BaseDatabase {
             email: "mock@teste.com",
             password: "senhaMockada-hash",
             role: "mock",
-            createdAt: "data mockada",
-            updatedAt: "nunca!"
+            created_at: "data mockada",
+            updated_at: "nunca!"
         }
-
-        if (idMock === "user-id-mock") {
+        if (idMock === "usuario-id-mock") {
             return userMock
         }
-
         else {
             return undefined
         }
@@ -32,8 +30,8 @@ export class UsersDatabaseMock extends BaseDatabase {
             email: "mock@teste.com",
             password: "senhaMockada-hash",
             role: "mock",
-            createdAt: "data mockada",
-            updatedAt: "nunca!"
+            created_at: "data mockada",
+            updated_at: "nunca!"
         }
 
         if (emailMock === "mock@teste.com") {
@@ -51,8 +49,8 @@ export class UsersDatabaseMock extends BaseDatabase {
             email: "mock@teste.com",
             password: "senhaMockada-hash",
             role: "mock",
-            createdAt: "data mockada",
-            updatedAt: "nunca!"
+            created_at: "data mockada",
+            updated_at: "nunca!"
         }
 
         if (emailMock === "mock@teste.com" && passwordMock === "senhaMockada-hash") {

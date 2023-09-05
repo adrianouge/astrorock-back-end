@@ -3,9 +3,9 @@ export interface productDB {
     name: string,
     description: string,
     price: number,
-    amountInStock: number,
-    createdAt: string,
-    updatedAt: string
+    amount_in_stock: number,
+    created_at: string,
+    updated_at: string
 }
 
 export interface userDB {
@@ -14,8 +14,8 @@ export interface userDB {
     email: string,
     password: string,
     role: string,
-    createdAt: string,
-    updatedAt: string
+    created_at: string,
+    updated_at: string
 }
 
 export interface userUpdatedDB {

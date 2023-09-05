@@ -6,9 +6,7 @@ import { UsersDatabase } from '../database/UsersDatabase'
 import { HashManager } from '../services/HashManager'
 import { TokenManager } from '../services/TokenManager'
 import { IdGenerator } from '../services/IdGenerator'
-
 export const usersRouter = express.Router()
-
 const usersController = new UsersController(
     new UsersDTO(),
     new UsersBusiness(
@@ -19,7 +17,6 @@ const usersController = new UsersController(
         new TokenManager()
     )
 )
-
 usersRouter.post('/signup', usersController.createNewUser)
 usersRouter.post('/login', usersController.loginUser)
 usersRouter.post('/changeemail', usersController.changeUsersEmail)

@@ -1,5 +1,4 @@
 -- Active: 1681320195383@@127.0.0.1@3306
-
 CREATE TABLE
     products (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -10,7 +9,6 @@ CREATE TABLE
         created_at TEXT NOT NULL,
         updated_at TEXT
     );
-
 CREATE TABLE
     users (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -21,7 +19,6 @@ CREATE TABLE
         created_at TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
         updated_at TEXT
     );
-
 CREATE TABLE
     carts (
         cart_owner TEXT UNIQUE NOT NULL,
@@ -30,7 +27,6 @@ CREATE TABLE
         FOREIGN KEY(cart_owner) REFERENCES users(id),
         FOREIGN KEY (product_id) REFERENCES products(id)
     );
-
 CREATE TABLE
     orders (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
@@ -42,11 +38,7 @@ CREATE TABLE
         paid INTEGER DEFAULT(0) NOT NULL,
         payment_date TEXT DEFAULT('NÃO PAGO') NOT NULL
     );
-
 DROP TABLE products;
-
 DROP TABLE users;
-
 DROP TABLE carts;
-
 DROP TABLE orders;
