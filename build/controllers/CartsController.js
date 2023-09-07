@@ -19,7 +19,8 @@ class CartsController {
             try {
                 const userToken = req.headers.authorization;
                 const { productId, productAmount } = req.body;
-                const input = this.cartsDTO.addProductToCartInput(userToken, productId, productAmount);
+                const input = this.cartsDTO
+                    .addProductToCartInput(userToken, productId, productAmount);
                 const output = yield this.cartsBusiness.addProductToCart(input);
                 res.status(200).send(output);
             }
@@ -37,7 +38,8 @@ class CartsController {
             try {
                 const userToken = req.headers.authorization;
                 const { productId, newProductAmount } = req.body;
-                const input = this.cartsDTO.updateProductAmountInput(userToken, productId, newProductAmount);
+                const input = this.cartsDTO
+                    .updateProductAmountInput(userToken, productId, newProductAmount);
                 const output = yield this.cartsBusiness.updateProductAmountInCart(input);
                 res.status(200).send(output);
             }
@@ -72,7 +74,8 @@ class CartsController {
             try {
                 const userToken = req.headers.authorization;
                 const { productId } = req.body;
-                const input = this.cartsDTO.deductProductFromCartInput(userToken, productId);
+                const input = this.cartsDTO
+                    .deductProductFromCartInput(userToken, productId);
                 const output = yield this.cartsBusiness.deductProductFromCart(input);
                 res.status(200).send(output);
             }

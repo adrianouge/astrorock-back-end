@@ -49,7 +49,7 @@ class OrdersBusiness {
                 userId: cartOwner,
                 productsId: productsInCart,
                 productsAmount,
-                purchaseDate: new Date().toISOString(),
+                purchaseDate: new Date().toString(),
                 paid: 0,
                 paymentDate: "Aguardando pagamento"
             };
@@ -98,12 +98,12 @@ class OrdersBusiness {
             const orderUpdated = {
                 id: orderToUpdate.id,
                 status: "Pago",
-                userId: orderToUpdate.id,
+                userId: orderToUpdate.userId,
                 productsId: orderToUpdate.productsId,
                 productsAmount: orderToUpdate.productsAmount,
                 purchaseDate: orderToUpdate.purchaseDate,
-                paid: 1,
-                paymentDate: new Date().toISOString()
+                paid: paidStatus,
+                paymentDate: new Date().toString()
             };
             yield this.ordersDatabase.updateOrder(orderUpdated);
             const output = this.ordersDTO.updateOrderOutput(orderUpdated);

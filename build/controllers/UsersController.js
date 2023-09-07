@@ -18,7 +18,8 @@ class UsersController {
         this.createNewUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { name, email, password } = req.body;
-                const input = this.usersDTO.createNewUserInput(name, email, password);
+                const input = this.usersDTO
+                    .createNewUserInput(name, email, password);
                 const output = yield this.usersBusiness.createNewUser(input);
                 res.status(200).send(output);
             }
@@ -35,7 +36,8 @@ class UsersController {
         this.loginUser = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
-                const input = this.usersDTO.loginUserInput(email, password);
+                const input = this.usersDTO
+                    .loginUserInput(email, password);
                 const output = yield this.usersBusiness.loginUser(input);
                 res.status(200).send(output);
             }
@@ -53,7 +55,8 @@ class UsersController {
             try {
                 const userToken = req.headers.authorization;
                 const { userId } = req.body;
-                const input = this.usersDTO.getUserByIdInput(userToken, userId);
+                const input = this.usersDTO
+                    .getUserByIdInput(userToken, userId);
                 const output = yield this.usersBusiness.getUserById(input);
                 res.status(200).send(output);
             }
@@ -71,7 +74,8 @@ class UsersController {
             try {
                 const userToken = req.headers.authorization;
                 const { newEmail } = req.body;
-                const input = this.usersDTO.changeUsersEmailInput(userToken, newEmail);
+                const input = this.usersDTO
+                    .changeUsersEmailInput(userToken, newEmail);
                 const output = yield this.usersBusiness.changeUsersEmail(input);
                 res.status(200).send(output);
             }
@@ -89,7 +93,8 @@ class UsersController {
             try {
                 const userToken = req.headers.authorization;
                 const { newPassword } = req.body;
-                const input = this.usersDTO.changeUsersPasswordInput(userToken, newPassword);
+                const input = this.usersDTO
+                    .changeUsersPasswordInput(userToken, newPassword);
                 const output = yield this.usersBusiness.changeUsersPassword(input);
                 res.status(200).send(output);
             }

@@ -14,9 +14,11 @@ BaseDatabase.connection = (0, knex_1.default)({
     connection: { filename: process.env.DB_FILE_PATH },
     useNullAsDefault: true,
     pool: {
-        min: 0, max: 1,
+        min: 0,
+        max: 1,
         afterCreate: (conn, cb) => {
-            conn.run("PRAGMA foreign_keys = ON", cb);
+            conn
+                .run("PRAGMA foreign_keys = ON", cb);
         }
     }
 });

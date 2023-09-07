@@ -18,24 +18,31 @@ class UsersDatabase extends BaseDatabase_1.BaseDatabase {
     }
     registerNewUser(newUser) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(UsersDatabase.TABLE_USERS).insert(newUser);
+            yield this
+                .dbConnection(UsersDatabase.TABLE_USERS)
+                .insert(newUser);
         });
     }
     getUserById(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [userFoundById] = yield this.dbConnection(UsersDatabase.TABLE_USERS).where({ id: userId });
+            const [userFoundById] = yield this
+                .dbConnection(UsersDatabase.TABLE_USERS)
+                .where({ id: userId });
             return userFoundById;
         });
     }
     getUserByEmail(userEmail) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [userFoundByEmail] = yield this.dbConnection(UsersDatabase.TABLE_USERS).where({ email: userEmail });
+            const [userFoundByEmail] = yield this
+                .dbConnection(UsersDatabase.TABLE_USERS)
+                .where({ email: userEmail });
             return userFoundByEmail;
         });
     }
     loginUser(userEmail, userPassword) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [userToLogin] = yield this.dbConnection(UsersDatabase.TABLE_USERS)
+            const [userToLogin] = yield this
+                .dbConnection(UsersDatabase.TABLE_USERS)
                 .where({
                 email: userEmail,
                 password: userPassword
@@ -43,23 +50,32 @@ class UsersDatabase extends BaseDatabase_1.BaseDatabase {
             return userToLogin;
         });
     }
-    changeEmail(userToUpdate, newEmail) {
+    changeEmail(userToUpdate, newEmail, newUpdatedAt) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(UsersDatabase.TABLE_USERS)
-                .update({ email: newEmail })
+            yield this
+                .dbConnection(UsersDatabase.TABLE_USERS)
+                .update({
+                email: newEmail,
+                updated_at: newUpdatedAt
+            })
                 .where({ id: userToUpdate.id });
         });
     }
-    changePassword(userToUpdate, newPassword) {
+    changePassword(userToUpdate, newPassword, newUpdatedAt) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(UsersDatabase.TABLE_USERS)
-                .update({ password: newPassword })
+            yield this
+                .dbConnection(UsersDatabase.TABLE_USERS)
+                .update({
+                password: newPassword,
+                updated_at: newUpdatedAt
+            })
                 .where({ id: userToUpdate.id });
         });
     }
     deleteUser(userToDelete) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(UsersDatabase.TABLE_USERS)
+            yield this
+                .dbConnection(UsersDatabase.TABLE_USERS)
                 .del()
                 .where({ id: userToDelete.id });
         });

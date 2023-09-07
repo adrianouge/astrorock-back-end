@@ -13,7 +13,11 @@ class UsersDTO {
         if (typeof password !== "string") {
             throw new BadRequestError_1.BadRequestError("Password do usuário deve ser do tipo string.");
         }
-        const dto = { name, email, password };
+        const dto = {
+            name,
+            email,
+            password
+        };
         return dto;
     }
     createNewUserOutput(newUser, userToken) {
@@ -30,7 +34,10 @@ class UsersDTO {
         if (typeof password !== "string") {
             throw new BadRequestError_1.BadRequestError("O password deve ser do tipo string.");
         }
-        const dto = { email, password };
+        const dto = {
+            email,
+            password
+        };
         return dto;
     }
     loginUserOutput(userLoggedIn, userToken) {
@@ -47,12 +54,16 @@ class UsersDTO {
         if (typeof idSearched !== "string") {
             throw new BadRequestError_1.BadRequestError("O 'id' pesquisado deve ser do tipo string.");
         }
-        const dto = { userToken, idSearched };
+        const dto = {
+            userToken,
+            idSearched
+        };
         return dto;
     }
     getUserByIdOutput(userFound) {
         const dto = {
-            message: `Usuário encontrado: ${userFound}`
+            message: `Usuário encontrado: ${userFound}`,
+            userFound
         };
         return dto;
     }
@@ -64,13 +75,15 @@ class UsersDTO {
             throw new BadRequestError_1.BadRequestError("Novo e-mail do usuário deve ser do tipo string.");
         }
         const dto = {
-            userToken, newEmail
+            userToken,
+            newEmail
         };
         return dto;
     }
     changeUsersEmailOutput(userUpdated) {
         const dto = {
-            message: `${userUpdated.name}, o e-mail da sua conta foi atualizado para ${userUpdated.email}`
+            message: `O e-mail da conta foi atualizada com sucesso.`,
+            userUpdated
         };
         return dto;
     }
@@ -82,13 +95,15 @@ class UsersDTO {
             throw new BadRequestError_1.BadRequestError("Nova senha do usuário deve ser do tipo string.");
         }
         const dto = {
-            userToken, newPassword
+            userToken,
+            newPassword
         };
         return dto;
     }
     changeUsersPasswordOutput(userUpdated) {
         const dto = {
-            message: `${userUpdated.name}, sua senha foi atualizada com sucesso.`
+            message: `A senha da conta foi atualizada com sucesso.`,
+            userUpdated
         };
         return dto;
     }
@@ -101,7 +116,8 @@ class UsersDTO {
     }
     deleteUserOutput(userDeleted) {
         const dto = {
-            message: `${userDeleted.name}, sua conta foi deletada com sucesso.`
+            message: `A conta foi deletada com sucesso.`,
+            userDeleted
         };
         return dto;
     }

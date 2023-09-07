@@ -10,17 +10,21 @@ class CartsDTO {
         if (typeof productId !== "string") {
             throw new BadRequestError_1.BadRequestError("O id do produto deve ser do tipo string.");
         }
-        if (typeof productAmount !== "number") {
-            throw new BadRequestError_1.BadRequestError("A quantidade do produto deve ser do tipo number.");
+        if (typeof productAmount !== "string") {
+            throw new BadRequestError_1.BadRequestError("A quantidade do produto deve ser do tipo string.");
         }
         const dto = {
-            userToken, productId, productAmount
+            userToken,
+            productId,
+            productAmount
         };
         return dto;
     }
     addProductToCartOutput(productName, productAmount) {
         const dto = {
-            message: `${productAmount} ${productName} foram adicionados ao seu carrinho com sucesso.`
+            message: `Produto adicionado ao seu carrinho com sucesso.`,
+            productName,
+            productAmount
         };
         return dto;
     }
@@ -31,17 +35,21 @@ class CartsDTO {
         if (typeof productId !== "string") {
             throw new BadRequestError_1.BadRequestError("O id do produto deve ser do tipo string.");
         }
-        if (typeof newProductAmount !== "number") {
-            throw new BadRequestError_1.BadRequestError("A quantidade do produto deve ser do tipo number.");
+        if (typeof newProductAmount !== "string") {
+            throw new BadRequestError_1.BadRequestError("A quantidade do produto deve ser do tipo string.");
         }
         const dto = {
-            userToken, productId, newProductAmount
+            userToken,
+            productId,
+            newProductAmount
         };
         return dto;
     }
     updateProductAmountOutput(productName, newProductAmount) {
         const dto = {
-            message: `A quantidade de ${productName} no carrinho foi alterada para ${newProductAmount}`
+            message: `A quantidade de produtos no carrinho foi atualizada.`,
+            productName,
+            newProductAmount
         };
         return dto;
     }
@@ -49,14 +57,13 @@ class CartsDTO {
         if (typeof userToken !== "string") {
             throw new BadRequestError_1.BadRequestError("O token do usuário para pegar carrinho deve ser do tipo 'string'.");
         }
-        const dto = {
-            userToken
-        };
+        const dto = { userToken };
         return dto;
     }
     getCartByUserOutput(userCart) {
         const dto = {
-            message: `Carrinho do usuário: ${userCart}`
+            message: `Carrinho do usuário encontrado.`,
+            userCart
         };
         return dto;
     }
@@ -68,13 +75,15 @@ class CartsDTO {
             throw new BadRequestError_1.BadRequestError("O id do produto deve ser do tipo string.");
         }
         const dto = {
-            userToken, productId
+            userToken,
+            productId
         };
         return dto;
     }
     deductProductFromCartOutput(productName) {
         const dto = {
-            message: `O produto ${productName} foi removido do seu carrinho.`
+            message: `O produto foi removido do seu carrinho.`,
+            removedProduct: productName
         };
         return dto;
     }

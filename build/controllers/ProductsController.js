@@ -19,7 +19,9 @@ class ProductsController {
             try {
                 const userToken = req.headers.authorization;
                 const { name, description, price, amountInStock } = req.body;
-                const input = this.productsDTO.registerNewProductInput(userToken, name, description, price, amountInStock);
+                const priceAsNumber = Number(price);
+                const amountInStockAsNumber = Number(amountInStock);
+                const input = this.productsDTO.registerNewProductInput(userToken, name, description, priceAsNumber, amountInStockAsNumber);
                 const output = yield this.productsBusiness.registerNewProduct(input);
                 res.status(200).send(output);
             }
@@ -37,7 +39,8 @@ class ProductsController {
             try {
                 const userToken = req.headers.authorization;
                 const { productId } = req.body;
-                const input = this.productsDTO.getProductByIdInput(userToken, productId);
+                const input = this.productsDTO
+                    .getProductByIdInput(userToken, productId);
                 const output = yield this.productsBusiness.getProductById(input);
                 res.status(200).send(output);
             }
@@ -87,7 +90,8 @@ class ProductsController {
             try {
                 const userToken = req.headers.authorization;
                 const { productId, productName, productDescription, productPrice, productAmountInStock, productCreatedAt } = req.body;
-                const input = this.productsDTO.updateProductInfoInput(userToken, productId, productName, productDescription, productPrice, productAmountInStock, productCreatedAt);
+                const input = this.productsDTO
+                    .updateProductInfoInput(userToken, productId, productName, productDescription, productPrice, productAmountInStock, productCreatedAt);
                 const output = yield this.productsBusiness.updateProductInfo(input);
                 res.status(200).send(output);
             }
@@ -105,7 +109,8 @@ class ProductsController {
             try {
                 const userToken = req.headers.authorization;
                 const { productId } = req.body;
-                const input = this.productsDTO.deleteProductByIdInput(userToken, productId);
+                const input = this.productsDTO
+                    .deleteProductByIdInput(userToken, productId);
                 const output = yield this.productsBusiness.deleteProduct(input);
                 res.status(200).send(output);
             }

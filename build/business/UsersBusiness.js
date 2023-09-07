@@ -32,9 +32,9 @@ class UsersBusiness {
                 name,
                 email,
                 password: hashedPassword,
-                role: "Normal",
-                createdAt: new Date().toISOString(),
-                updatedAt: "Never"
+                role: "Admin",
+                created_at: new Date().toISOString(),
+                updated_at: "Never"
             };
             yield this.usersDatabase.registerNewUser(newUser);
             const userToken = this.tokenManager.createToken({
@@ -63,8 +63,8 @@ class UsersBusiness {
                 email: userInfoMatched.email,
                 password: userInfoMatched.password,
                 role: userInfoMatched.role,
-                createdAt: userInfoMatched.createdAt,
-                updatedAt: userInfoMatched.updatedAt
+                created_at: userInfoMatched.created_at,
+                updated_at: userInfoMatched.updated_at
             };
             const output = this.usersDTO.loginUserOutput(userLoggedIn, userToken);
             return output;
@@ -99,15 +99,16 @@ class UsersBusiness {
             if (emailAlreadyRegistered) {
                 throw new BadRequestError_1.BadRequestError("Já existe uma conta registrada com o e-mail informado.");
             }
-            yield this.usersDatabase.changeEmail(userToUpdate, newEmail);
+            const newUpdatedAt = new Date().toString();
+            yield this.usersDatabase.changeEmail(userToUpdate, newEmail, newUpdatedAt);
             const updatedUser = {
                 id: userToUpdate.id,
                 name: userToUpdate.name,
                 email: newEmail,
                 password: userToUpdate.password,
                 role: userToUpdate.role,
-                createdAt: userToUpdate.createdAt,
-                updatedAt: userToUpdate.updatedAt
+                created_at: userToUpdate.created_at,
+                updated_at: newUpdatedAt
             };
             const output = this.usersDTO.changeUsersEmailOutput(updatedUser);
             return output;
@@ -122,15 +123,16 @@ class UsersBusiness {
             if (!userChangingPassword) {
                 throw new NotFoundError_1.NotFoundError("Informações do usuário trocando de senha não encontradas.");
             }
-            yield this.usersDatabase.changePassword(userChangingPassword, newPassword);
+            const newUpdatedAt = new Date().toString();
+            yield this.usersDatabase.changePassword(userChangingPassword, newPassword, newUpdatedAt);
             const updatedUser = {
                 id: userChangingPassword.id,
                 name: userChangingPassword.name,
                 email: userChangingPassword.email,
                 password: newPassword,
                 role: userChangingPassword.role,
-                createdAt: userChangingPassword.createdAt,
-                updatedAt: userChangingPassword.updatedAt
+                created_at: userChangingPassword.created_at,
+                updated_at: newUpdatedAt
             };
             const output = this.usersDTO.changeUsersPasswordOutput(updatedUser);
             return output;

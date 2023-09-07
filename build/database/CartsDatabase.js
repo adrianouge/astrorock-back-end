@@ -18,19 +18,23 @@ class CartsDatabase extends BaseDatabase_1.BaseDatabase {
     }
     getCartByOwner(ownerId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const cartFound = yield this.dbConnection(CartsDatabase.TABLE_CARTS)
+            const cartFound = yield this
+                .dbConnection(CartsDatabase.TABLE_CARTS)
                 .where({ cart_owner: ownerId });
             return cartFound;
         });
     }
     addProductToCart(usersCartProductAdded) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(CartsDatabase.TABLE_CARTS).insert(usersCartProductAdded);
+            yield this
+                .dbConnection(CartsDatabase.TABLE_CARTS)
+                .insert(usersCartProductAdded);
         });
     }
     updateCart(newCart) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(CartsDatabase.TABLE_CARTS)
+            yield this
+                .dbConnection(CartsDatabase.TABLE_CARTS)
                 .update({ newCart })
                 .where({
                 cart_owner: newCart.cartOwner,
@@ -40,7 +44,8 @@ class CartsDatabase extends BaseDatabase_1.BaseDatabase {
     }
     deductProductFromCart(cartOwnerId, productId) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(CartsDatabase.TABLE_CARTS)
+            yield this
+                .dbConnection(CartsDatabase.TABLE_CARTS)
                 .del()
                 .where({
                 cart_owner: cartOwnerId,

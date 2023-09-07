@@ -1,1 +1,1 @@
-{"version":3,"file":"UnauthorizedError.js","sourceRoot":"","sources":["../../src/errors/UnauthorizedError.ts"],"names":[],"mappings":";;;AAAA,2CAAwC;AAGxC,MAAa,iBAAkB,SAAQ,qBAAS;IAC5C,YACI,UAAkB,wBAAwB;QAE1C,KAAK,CAAC,GAAG,EAAE,OAAO,CAAC,CAAA;IACvB,CAAC;CACJ;AAND,8CAMC"}
+{"version":3,"file":"UnauthorizedError.js","sourceRoot":"","sources":["../../src/errors/UnauthorizedError.ts"],"names":[],"mappings":";;;AAAA,2CAAwC;AACxC,MAAa,iBAAkB,SAAQ,qBAAS;IAC5C,YACI,UAAkB,wBAAwB;QAE1C,KAAK,CACD,GAAG,EACH,OAAO,CACN,CAAA;IACT,CAAC;CACJ;AATD,8CASC"}

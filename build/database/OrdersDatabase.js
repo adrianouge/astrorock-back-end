@@ -18,29 +18,41 @@ class OrdersDatabase extends BaseDatabase_1.BaseDatabase {
     }
     createNewOrder(newOrder) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(OrdersDatabase.TABLE_ORDERS).insert(newOrder);
+            yield this
+                .dbConnection(OrdersDatabase.TABLE_ORDERS)
+                .insert(newOrder);
         });
     }
     getOrderById(orderId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const [orderFound] = yield this.dbConnection(OrdersDatabase.TABLE_ORDERS).where({ id: orderId });
+            const [orderFound] = yield this
+                .dbConnection(OrdersDatabase.TABLE_ORDERS)
+                .where({ id: orderId });
             return orderFound;
         });
     }
     getOrdersByUser(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const usersOrders = yield this.dbConnection(OrdersDatabase.TABLE_ORDERS).where({ userId });
+            const usersOrders = yield this
+                .dbConnection(OrdersDatabase.TABLE_ORDERS)
+                .where({ userId });
             return usersOrders;
         });
     }
     updateOrder(orderUpdated) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(OrdersDatabase.TABLE_ORDERS).update(orderUpdated).where({ id: orderUpdated.id });
+            yield this
+                .dbConnection(OrdersDatabase.TABLE_ORDERS)
+                .update(orderUpdated)
+                .where({ id: orderUpdated.id });
         });
     }
     deleteOrder(orderToDeleteId) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.dbConnection(OrdersDatabase.TABLE_ORDERS).del().where({ id: orderToDeleteId });
+            yield this
+                .dbConnection(OrdersDatabase.TABLE_ORDERS)
+                .del()
+                .where({ id: orderToDeleteId });
         });
     }
 }

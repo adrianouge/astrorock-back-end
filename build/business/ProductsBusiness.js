@@ -37,9 +37,9 @@ class ProductsBusiness {
                 name,
                 description,
                 price,
-                amountInStock,
-                createdAt: new Date().toISOString(),
-                updatedAt: "Never"
+                amount_in_stock: amountInStock,
+                created_at: new Date().toISOString(),
+                updated_at: "Never"
             };
             yield this.productsDatabase.registerNewProduct(newProduct);
             const output = this.productsDTO.registerNewProductOutput(newProduct);
@@ -72,11 +72,7 @@ class ProductsBusiness {
             return output;
         });
         this.getAllProducts = () => __awaiter(this, void 0, void 0, function* () {
-            const [allProducts] = yield this.productsDatabase.getAllProducts();
-            if (allProducts === undefined) {
-                throw new NotFoundError_1.NotFoundError("Nenhum produto registrado foi encontrado.");
-            }
-            const allProductsInArray = [allProducts];
+            const allProductsInArray = yield this.productsDatabase.getAllProducts();
             const output = this.productsDTO.getAllProductsOutput(allProductsInArray);
             return output;
         });
@@ -91,9 +87,9 @@ class ProductsBusiness {
                 name: productName,
                 description: productDescription,
                 price: productPrice,
-                amountInStock: productAmountInStock,
-                createdAt: productCreatedAt,
-                updatedAt: new Date().toISOString()
+                amount_in_stock: productAmountInStock,
+                created_at: productCreatedAt,
+                updated_at: new Date().toISOString()
             };
             yield this.productsDatabase.updateProductInfo(productUpdatedInfo);
             const output = this.productsDTO.updateProductInfoOutput(productUpdatedInfo);

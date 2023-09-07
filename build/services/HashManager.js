@@ -21,11 +21,13 @@ class HashManager {
         this.hash = (plaintext) => __awaiter(this, void 0, void 0, function* () {
             const rounds = Number(process.env.BCRYPT_COST);
             const salt = yield bcryptjs_1.default.genSalt(rounds);
-            const hash = yield bcryptjs_1.default.hash(plaintext, salt);
+            const hash = yield bcryptjs_1.default
+                .hash(plaintext, salt);
             return hash;
         });
         this.compare = (plaintext, hash) => __awaiter(this, void 0, void 0, function* () {
-            return bcryptjs_1.default.compare(plaintext, hash);
+            return bcryptjs_1.default
+                .compare(plaintext, hash);
         });
     }
 }

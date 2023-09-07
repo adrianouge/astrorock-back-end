@@ -21,13 +21,17 @@ class ProductsDTO {
         }
         const dto = {
             userToken,
-            name, description, price, amountInStock
+            name,
+            description,
+            price,
+            amountInStock
         };
         return dto;
     }
     registerNewProductOutput(newProduct) {
         const dto = {
-            message: `O produto ${newProduct.name} foi registrado com sucesso.`
+            message: `O produto ${newProduct.name} foi registrado com sucesso.`,
+            productRegistered: newProduct
         };
         return dto;
     }
@@ -39,7 +43,8 @@ class ProductsDTO {
             throw new BadRequestError_1.BadRequestError("O id do produto pesquisado deve ser do tipo 'string'.");
         }
         const dto = {
-            userToken, idSearched
+            userToken,
+            idSearched
         };
         return dto;
     }
@@ -54,9 +59,7 @@ class ProductsDTO {
         if (typeof termSearched !== "string") {
             throw new BadRequestError_1.BadRequestError("O termo para pesquisa de produto deve ser do tipo 'string'.");
         }
-        const dto = {
-            termSearched
-        };
+        const dto = { termSearched };
         return dto;
     }
     getProductsByNameLikeOutput(productsFound) {
@@ -115,7 +118,7 @@ class ProductsDTO {
     }
     updateProductInfoOutput(updatedProduct) {
         const dto = {
-            message: `O produto foi atualizado com sucesso em ${updatedProduct.updatedAt}`,
+            message: `O produto foi atualizado com sucesso em ${updatedProduct.updated_at}`,
             updatedProduct
         };
         return dto;
@@ -128,13 +131,15 @@ class ProductsDTO {
             throw new BadRequestError_1.BadRequestError("O id do produto informado para deleção deve ser do tipo 'string'.");
         }
         const dto = {
-            userToken, idToDelete
+            userToken,
+            idToDelete
         };
         return dto;
     }
     deleteProductByIdOutput(deletedProduct) {
         const dto = {
-            message: `O produto ${deletedProduct.name} foi deletado com sucesso.`
+            message: `O produto ${deletedProduct.name} foi deletado com sucesso.`,
+            deletedProduct
         };
         return dto;
     }

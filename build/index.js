@@ -14,9 +14,11 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-app.listen();
+app.listen(Number(process.env.PORT), () => {
+    console.log(`Server running on port ${Number(process.env.PORT)}`);
+});
 app.use('/users', UsersRouter_1.usersRouter);
-app.use('/posts', ProductsRouter_1.productsRouter);
+app.use('/products', ProductsRouter_1.productsRouter);
 app.use('/orders', OrdersRouter_1.ordersRouter);
 app.use('/carts', CartsRouter_1.cartsRouter);
 //# sourceMappingURL=index.js.map

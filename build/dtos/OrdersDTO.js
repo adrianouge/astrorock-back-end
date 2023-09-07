@@ -10,15 +10,20 @@ class OrdersDTO {
         if (typeof productsId !== "string") {
             throw new BadRequestError_1.BadRequestError("O id dos produtos da nova compra deve ser do tipo array de 'string'.");
         }
-        if (typeof productsAmount !== "number") {
-            throw new BadRequestError_1.BadRequestError("A quantidade dos produtos da nova compra devem ser do tipo array de 'number'");
+        if (typeof productsAmount !== "string") {
+            throw new BadRequestError_1.BadRequestError("A quantidade dos produtos da nova compra devem ser do tipo array de 'string'");
         }
-        const dto = { userToken, productsId, productsAmount };
+        const dto = {
+            userToken,
+            productsId,
+            productsAmount
+        };
         return dto;
     }
     createNewOrderOutput(orderRegistered) {
         const dto = {
-            message: `Compra de id ${orderRegistered.id} foi registrada com sucesso.`
+            message: `Compra registrada com sucesso.`,
+            orderRegistered
         };
         return dto;
     }
@@ -37,7 +42,8 @@ class OrdersDTO {
     }
     getOrderByIdOutput(orderFound) {
         const dto = {
-            message: `Compra com id ${orderFound.id} encontrada: ${orderFound}`
+            message: `Compra encontrada.`,
+            orderFound
         };
         return dto;
     }
@@ -50,7 +56,8 @@ class OrdersDTO {
     }
     getOrdersByUserOutput(userOrders) {
         const dto = {
-            message: `Aqui estão as compras encontradas efetuadas pelo usuário: ${userOrders}`
+            message: `Aqui estão as compras encontradas efetuadas pelo usuário.`,
+            userOrders
         };
         return dto;
     }
@@ -69,7 +76,8 @@ class OrdersDTO {
     }
     updateOrderOutput(orderUpdated) {
         const dto = {
-            message: `A compra foi atualizada com sucesso: ${orderUpdated}`
+            message: `As informações da compra foram atualizadas com sucesso.`,
+            orderUpdated
         };
         return dto;
     }
@@ -88,7 +96,8 @@ class OrdersDTO {
     }
     deleteOrderOutput(orderDeleted) {
         const dto = {
-            message: `A compra de id ${orderDeleted.id} foi deletada com sucesso.`
+            message: `A compra foi deletada com sucesso.`,
+            orderDeleted
         };
         return dto;
     }

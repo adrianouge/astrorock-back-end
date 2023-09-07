@@ -31,7 +31,7 @@ class CartsBusiness {
             const usersCartProductAdded = {
                 cartOwner: userPayload.id,
                 productId,
-                productsAmount: productAmount.toString()
+                productsAmount: productAmount
             };
             yield this.cartsDatabase.addProductToCart(usersCartProductAdded);
             const output = this.cartsDTO.addProductToCartOutput(productToAdd.name, productAmount);

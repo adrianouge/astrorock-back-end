@@ -19,7 +19,8 @@ class OrdersController {
             try {
                 const userToken = req.headers.authorization;
                 const { productsId, productsAmount } = req.body;
-                const input = this.ordersDTO.createNewOrderInput(userToken, productsId, productsAmount);
+                const input = this.ordersDTO
+                    .createNewOrderInput(userToken, productsId, productsAmount);
                 const output = yield this.ordersBusiness.createNewOrder(input);
                 res.status(200).send(output);
             }
@@ -37,7 +38,8 @@ class OrdersController {
             try {
                 const userToken = req.headers.authorization;
                 const { orderId } = req.body;
-                const input = this.ordersDTO.getOrderByIdInput(userToken, orderId);
+                const input = this.ordersDTO
+                    .getOrderByIdInput(userToken, orderId);
                 const output = yield this.ordersBusiness.getOrderById(input);
                 res.status(200).send(output);
             }
@@ -71,7 +73,8 @@ class OrdersController {
         this.updateOrderById = (req, res) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const { orderId, paidStatus } = req.body;
-                const input = this.ordersDTO.updateOrderInput(orderId, paidStatus);
+                const input = this.ordersDTO
+                    .updateOrderInput(orderId, paidStatus);
                 const output = yield this.ordersBusiness.updateOrderById(input);
                 res.status(200).send(output);
             }
@@ -89,7 +92,8 @@ class OrdersController {
             try {
                 const userToken = req.headers.authorization;
                 const { orderId } = req.body;
-                const input = this.ordersDTO.deleteOrderInput(userToken, orderId);
+                const input = this.ordersDTO
+                    .deleteOrderInput(userToken, orderId);
                 const output = yield this.ordersBusiness.deleteOrderById(input);
                 res.status(200).send(output);
             }
