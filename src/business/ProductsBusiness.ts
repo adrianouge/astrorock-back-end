@@ -1,12 +1,17 @@
 import { ProductsDatabase } from "../database/ProductsDatabase";
 import {
     ProductsDTO,
-    DeleteProductByIdInput, DeleteProductByIdOutput,
+    DeleteProductByIdInput,
+    DeleteProductByIdOutput,
     GetAllProductsOutput,
-    GetProductByIdInput, GetProductByIdOutput,
-    GetProductsByNameLikeInput, GetProductsByNameLikeOutput,
-    RegisterNewProductInput, RegisterNewProductOutput,
-    UpdateProductInfoInput, UpdateProductInfoOutput
+    GetProductByIdInput,
+    GetProductByIdOutput,
+    GetProductsByNameLikeInput,
+    GetProductsByNameLikeOutput,
+    RegisterNewProductInput,
+    RegisterNewProductOutput,
+    UpdateProductInfoInput,
+    UpdateProductInfoOutput
 } from "../dtos/ProductsDTO";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -14,7 +19,6 @@ import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { productDB } from "../types";
-
 
 export class ProductsBusiness {
 
@@ -25,7 +29,13 @@ export class ProductsBusiness {
         private idGenerator: IdGenerator
     ) { }
     public registerNewProduct = async (input: RegisterNewProductInput): Promise<RegisterNewProductOutput> => {
-        const { userToken, name, description, price, amountInStock } = input
+        const {
+            userToken,
+            name,
+            description,
+            price,
+            amountInStock
+        } = input
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
             throw new BadRequestError("Token do usuário inválido.")
@@ -51,8 +61,10 @@ export class ProductsBusiness {
         return output
     }
     public getProductById = async (input: GetProductByIdInput): Promise<GetProductByIdOutput> => {
-        const { userToken, idSearched } = input
-
+        const {
+            userToken,
+            idSearched
+        } = input
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
             throw new BadRequestError("Token do usuário inválido.")
@@ -60,12 +72,10 @@ export class ProductsBusiness {
         if (getPayload.role !== "Admin") {
             throw new UnauthorizedError("Apenas usuários admins podem pesquisar produtos por id.")
         }
-
         const productFound = await this.productsDatabase.getProductById(idSearched)
         if (!productFound) {
             throw new NotFoundError("Nenhum produto foi encontrado com este id.")
         }
-
         const output: GetProductByIdOutput = this.productsDTO.getProductByIdOutput(productFound)
         return output
     }
@@ -92,12 +102,10 @@ export class ProductsBusiness {
             productPrice,
             productAmountInStock,
             productCreatedAt } = input
-
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
             throw new BadRequestError("Token do usuário inválido.")
         }
-
         const productUpdatedInfo: productDB = {
             id: productId,
             name: productName,
@@ -108,12 +116,14 @@ export class ProductsBusiness {
             updated_at: new Date().toISOString()
         }
         await this.productsDatabase.updateProductInfo(productUpdatedInfo)
-
         const output: UpdateProductInfoOutput = this.productsDTO.updateProductInfoOutput(productUpdatedInfo)
         return output
     }
     public deleteProduct = async (input: DeleteProductByIdInput): Promise<DeleteProductByIdOutput> => {
-        const { userToken, idToDelete } = input
+        const {
+            userToken,
+            idToDelete
+        } = input
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
             throw new BadRequestError("Token do usuário inválido.")

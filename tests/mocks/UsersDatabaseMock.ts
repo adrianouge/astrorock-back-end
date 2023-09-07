@@ -4,6 +4,7 @@ import { userDB } from '../../src/types'
 export class UsersDatabaseMock extends BaseDatabase {
     public static TABLE_USERS = "users"
     dbConnection = BaseDatabase.connection
+
     public registerNewUser = async (): Promise<void> => {
     }
     public getUserById = async (idMock: string): Promise<userDB | undefined> => {
@@ -31,7 +32,7 @@ export class UsersDatabaseMock extends BaseDatabase {
             password: "senhaMockada-hash",
             role: "mock",
             created_at: "data mockada",
-            updated_at: "nunca!"
+            updated_at: "nunca"
         }
 
         if (emailMock === "mock@teste.com") {
@@ -42,7 +43,10 @@ export class UsersDatabaseMock extends BaseDatabase {
             return undefined
         }
     }
-    public loginUser = async (emailMock: string, passwordMock: string): Promise<userDB | undefined> => {
+    public loginUser = async (
+        emailMock: string,
+        passwordMock: string
+        ): Promise<userDB | undefined> => {
         const userMock: userDB = {
             id: "user-id-mock",
             name: "Usuário mock",
@@ -52,18 +56,25 @@ export class UsersDatabaseMock extends BaseDatabase {
             created_at: "data mockada",
             updated_at: "nunca!"
         }
-
-        if (emailMock === "mock@teste.com" && passwordMock === "senhaMockada-hash") {
+        if (
+            emailMock === "mock@teste.com" &&
+            passwordMock === "senhaMockada-hash"
+            ) {
             return userMock
         }
-
         else {
             return undefined
         }
     }
-    public changeEmail = async (userMock: userDB, newEmailMock: string): Promise<void> => {
+    public changeEmail = async (
+        userMock: userDB,
+        newEmailMock: string
+        ): Promise<void> => {
     }
-    public changePassword = async (userMock: userDB, newPassword: string): Promise<void> => {
+    public changePassword = async (
+        userMock: userDB,
+        newPassword: string
+        ): Promise<void> => {
     }
     public deleteUser = async (userToDeleteMock: userDB): Promise<void> => {
     }

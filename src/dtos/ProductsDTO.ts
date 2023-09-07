@@ -1,7 +1,5 @@
 import { BadRequestError } from "../errors/BadRequestError";
-import { NotFoundError } from "../errors/NotFoundError";
-import { productDB } from "../types";
-
+import {productDB } from "../types";
 
 export interface RegisterNewProductInput {
     userToken: string,
@@ -12,6 +10,7 @@ export interface RegisterNewProductInput {
 }
 export interface RegisterNewProductOutput {
     message: string
+    productRegistered: productDB
 }
 export interface GetProductByIdInput {
     userToken: string,
@@ -30,7 +29,7 @@ export interface GetProductsByNameLikeOutput {
 }
 export interface GetAllProductsOutput {
     message: string,
-    allProducts: productDB[] | undefined []
+    allProducts: productDB[] | undefined[]
 }
 export interface UpdateProductInfoInput {
     userToken: string,
@@ -50,7 +49,8 @@ export interface DeleteProductByIdInput {
     idToDelete: string
 }
 export interface DeleteProductByIdOutput {
-    message: string
+    message: string,
+    deletedProduct: productDB
 }
 export class ProductsDTO {
     public registerNewProductInput(
@@ -76,17 +76,24 @@ export class ProductsDTO {
         }
         const dto: RegisterNewProductInput = {
             userToken,
-            name, description, price, amountInStock
+            name,
+            description,
+            price,
+            amountInStock
         }
         return dto
     }
     public registerNewProductOutput(newProduct: productDB): RegisterNewProductOutput {
         const dto: RegisterNewProductOutput = {
-            message: `O produto ${newProduct.name} foi registrado com sucesso.`
+            message: `O produto ${newProduct.name} foi registrado com sucesso.`,
+            productRegistered: newProduct
         }
         return dto
     }
-    public getProductByIdInput(userToken: unknown, idSearched: unknown): GetProductByIdInput {
+    public getProductByIdInput(
+        userToken: unknown,
+        idSearched: unknown
+    ): GetProductByIdInput {
         if (typeof userToken !== "string") {
             throw new BadRequestError("O token do usuário deve ser do tipo 'string'.")
         }
@@ -94,7 +101,8 @@ export class ProductsDTO {
             throw new BadRequestError("O id do produto pesquisado deve ser do tipo 'string'.")
         }
         const dto: GetProductByIdInput = {
-            userToken, idSearched
+            userToken,
+            idSearched
         }
         return dto
     }
@@ -106,14 +114,10 @@ export class ProductsDTO {
         return dto
     }
     public getProductsByNameLikeInput(termSearched: unknown): GetProductsByNameLikeInput {
-
         if (typeof termSearched !== "string") {
             throw new BadRequestError("O termo para pesquisa de produto deve ser do tipo 'string'.")
         }
-
-        const dto: GetProductsByNameLikeInput = {
-            termSearched
-        }
+        const dto: GetProductsByNameLikeInput = { termSearched }
         return dto
     }
     public getProductsByNameLikeOutput(productsFound: productDB[]): GetProductsByNameLikeOutput {
@@ -183,24 +187,26 @@ export class ProductsDTO {
         }
         return dto
     }
-    public deleteProductByIdInput(userToken: unknown, idToDelete: unknown): DeleteProductByIdInput {
-
+    public deleteProductByIdInput(
+        userToken: unknown,
+        idToDelete: unknown
+        ): DeleteProductByIdInput {
         if (typeof userToken !== "string") {
             throw new BadRequestError("O token do usuário deve ser do tipo 'string'.")
         }
-
         if (typeof idToDelete !== "string") {
             throw new BadRequestError("O id do produto informado para deleção deve ser do tipo 'string'.")
         }
-
         const dto: DeleteProductByIdInput = {
-            userToken, idToDelete
+            userToken,
+            idToDelete
         }
         return dto
     }
     public deleteProductByIdOutput(deletedProduct: productDB): DeleteProductByIdOutput {
         const dto: DeleteProductByIdOutput = {
-            message: `O produto ${deletedProduct.name} foi deletado com sucesso.`
+            message: `O produto ${deletedProduct.name} foi deletado com sucesso.`,
+            deletedProduct
         }
         return dto
     }

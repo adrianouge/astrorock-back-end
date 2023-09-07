@@ -8,7 +8,6 @@ import { IdGenerator } from '../services/IdGenerator'
 import { CartsDatabase } from '../database/CartsDatabase'
 
 export const ordersRouter = express.Router()
-
 const ordersController = new OrdersController(
     new OrdersDTO(),
     new OrdersBusiness(
@@ -19,7 +18,6 @@ const ordersController = new OrdersController(
         new OrdersDTO()
     )
 )
-
 ordersRouter.post('/', ordersController.createNewOrder)
 ordersRouter.post('/:id', ordersController.updateOrderById)
 ordersRouter.get('/:id', ordersController.getOrderById)

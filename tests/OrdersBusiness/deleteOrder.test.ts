@@ -18,11 +18,25 @@ describe("deleteOrder", () => {
         new OrdersDTO
     )
     test("deve retornar mensagem de compra bem sucedida", async () => {
+        expect.assertions(2)
         const input: DeleteOrderInput = {
             userToken: "token-mock",
             orderToDeleteId: "order-id-mock"
         }
+        const orderDeletedMock = {
+            id: 'order-id-mock',
+            status: 'status-mock',
+            userId: 'usuario-id-mock',
+            productsId: 'produto-id-mock, produto2-id-mock',
+            productsAmount: '1, 1',
+            purchaseDate: 'data-mock',
+            paid: 0,
+            paymentDate: 'nunca'
+        }
         const response: DeleteOrderOutput = await ordersBusiness.deleteOrderById(input)
-        expect(response.message).toBe(`A compra de id order-id-mock foi deletada com sucesso.`)
+        expect(response.message)
+            .toBe(`A compra foi deletada com sucesso.`)
+        expect(response.orderDeleted)
+            .toStrictEqual(orderDeletedMock)
     })
 })

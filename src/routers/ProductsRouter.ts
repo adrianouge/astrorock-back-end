@@ -7,7 +7,6 @@ import { TokenManager } from '../services/TokenManager'
 import { IdGenerator } from '../services/IdGenerator'
 
 export const productsRouter = express.Router()
-
 const productsController = new ProductsController(
     new ProductsDTO(),
     new ProductsBusiness(
@@ -17,7 +16,6 @@ const productsController = new ProductsController(
         new IdGenerator()
     ),
 )
-
 productsRouter.get('/', productsController.getAllProducts)
 productsRouter.post('/registernewproduct', productsController.registerNewProduct)
 productsRouter.post('/:id/editproduct', productsController.updateProductInfoById)

@@ -1,12 +1,20 @@
-import { Request, Response } from "express";
 import {
-    DeleteProductByIdInput, DeleteProductByIdOutput,
+    Request,
+    Response
+} from "express";
+import {
+    DeleteProductByIdInput,
+    DeleteProductByIdOutput,
     GetAllProductsOutput,
-    GetProductByIdInput, GetProductByIdOutput,
-    GetProductsByNameLikeInput, GetProductsByNameLikeOutput,
+    GetProductByIdInput,
+    GetProductByIdOutput,
+    GetProductsByNameLikeInput,
+    GetProductsByNameLikeOutput,
     ProductsDTO,
-    RegisterNewProductInput, RegisterNewProductOutput,
-    UpdateProductInfoInput, UpdateProductInfoOutput
+    RegisterNewProductInput,
+    RegisterNewProductOutput,
+    UpdateProductInfoInput,
+    UpdateProductInfoOutput
 } from "../dtos/ProductsDTO";
 import { ProductsBusiness } from "../business/ProductsBusiness";
 import { BaseError } from "../errors/BaseError";
@@ -16,16 +24,21 @@ export class ProductsController {
         private productsDTO: ProductsDTO,
         private productsBusiness: ProductsBusiness
     ) { }
-
     public registerNewProduct = async (req: Request, res: Response) => {
         try {
             const userToken = req.headers.authorization
-            const { name, description, price, amountInStock } = req.body
+            const {
+                name,
+                description,
+                price,
+                amountInStock
+            } = req.body
             const priceAsNumber = Number(price)
             const amountInStockAsNumber = Number(amountInStock)
             const input: RegisterNewProductInput = this.productsDTO.registerNewProductInput(
                 userToken,
-                name, description,
+                name,
+                description,
                 priceAsNumber,
                 amountInStockAsNumber)
             const output: RegisterNewProductOutput = await this.productsBusiness.registerNewProduct(input)
@@ -43,7 +56,11 @@ export class ProductsController {
         try {
             const userToken = req.headers.authorization
             const { productId } = req.body
-            const input: GetProductByIdInput = this.productsDTO.getProductByIdInput(userToken, productId)
+            const input: GetProductByIdInput = this.productsDTO
+                .getProductByIdInput(
+                    userToken,
+                    productId
+                )
             const output: GetProductByIdOutput = await this.productsBusiness.getProductById(input)
             res.status(200).send(output)
         }
@@ -60,7 +77,6 @@ export class ProductsController {
             const output: GetAllProductsOutput = await this.productsBusiness.getAllProducts()
             res.status(200).send(output)
         }
-
         catch (error) {
             console.log(error)
             if (error instanceof BaseError) {
@@ -76,7 +92,6 @@ export class ProductsController {
             const output: GetProductsByNameLikeOutput = await this.productsBusiness.getProductByNameLike(input)
             res.status(200).send(output)
         }
-
         catch (error) {
             console.log(error)
             if (error instanceof BaseError) {
@@ -88,12 +103,27 @@ export class ProductsController {
     public updateProductInfoById = async (req: Request, res: Response) => {
         try {
             const userToken = req.headers.authorization
-            const { productId, productName, productDescription, productPrice, productAmountInStock, productCreatedAt } = req.body
-            const input: UpdateProductInfoInput = this.productsDTO.updateProductInfoInput(userToken, productId, productName, productDescription, productPrice, productAmountInStock, productCreatedAt)
+            const {
+                productId,
+                productName,
+                productDescription,
+                productPrice,
+                productAmountInStock,
+                productCreatedAt
+            } = req.body
+            const input: UpdateProductInfoInput = this.productsDTO
+                .updateProductInfoInput(
+                    userToken,
+                    productId,
+                    productName,
+                    productDescription,
+                    productPrice,
+                    productAmountInStock,
+                    productCreatedAt
+                )
             const output: UpdateProductInfoOutput = await this.productsBusiness.updateProductInfo(input)
             res.status(200).send(output)
         }
-
         catch (error) {
             console.log(error)
             if (error instanceof BaseError) {
@@ -106,11 +136,14 @@ export class ProductsController {
         try {
             const userToken = req.headers.authorization
             const { productId } = req.body
-            const input: DeleteProductByIdInput = this.productsDTO.deleteProductByIdInput(userToken, productId)
+            const input: DeleteProductByIdInput = this.productsDTO
+                .deleteProductByIdInput(
+                    userToken,
+                    productId
+                )
             const output: DeleteProductByIdOutput = await this.productsBusiness.deleteProduct(input)
             res.status(200).send(output)
         }
-
         catch (error) {
             console.log(error)
             if (error instanceof BaseError) {

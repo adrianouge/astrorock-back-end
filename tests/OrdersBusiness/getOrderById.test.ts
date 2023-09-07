@@ -8,6 +8,7 @@ import { OrdersDatabaseMock } from '../mocks/OrdersDatabaseMock'
 import { CartsDatabaseMock } from '../mocks/CartsDatabaseMock'
 import { TokenManagerNormalMock } from '../mocks/TokenManagerNormalMock'
 import { IdGeneratorMock } from '../mocks/IdGeneratorMock'
+import { orderDB } from '../../src/types'
 
 describe("getOrderById", () => {
     const ordersBusiness = new OrdersBusiness(
@@ -18,12 +19,12 @@ describe("getOrderById", () => {
         new OrdersDTO
     )
     test("deve retornar mensagem de compra bem sucedida", async () => {
+        expect.assertions(2)
         const input: GetOrderByIdInput = {
             userToken: "token-mock",
             orderId: "order-id-mock"
         }
-        const response: GetOrderByIdOutput = await ordersBusiness.getOrderById(input)
-        expect(response.message).toBe(`Compra com id order-id-mock encontrada: ${{
+        const foundOrderMock: orderDB = {
             id: 'order-id-mock',
             status: 'status-mock',
             userId: 'usuario-id-mock',
@@ -32,6 +33,11 @@ describe("getOrderById", () => {
             purchaseDate: 'data-mock',
             paid: 0,
             paymentDate: 'nunca'
-        }}`)
+        }
+        const response: GetOrderByIdOutput = await ordersBusiness.getOrderById(input)
+        expect(response.message)
+            .toBe(`Compra encontrada.`)
+        expect(response.orderFound)
+            .toStrictEqual(foundOrderMock)
     })
 })

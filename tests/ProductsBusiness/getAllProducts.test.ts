@@ -35,8 +35,10 @@ describe("getAllProducts", () => {
             created_at: "data-mock",
             updated_at: "nunca"
         }]
-        expect(response.message).toBe(`Aqui estão todos os produtos:`)
-        expect(response.allProducts).toStrictEqual(allProductsExpected)
+        expect(response.message)
+            .toBe(`Aqui estão todos os produtos:`)
+        expect(response.allProducts)
+            .toStrictEqual(allProductsExpected)
     }
     )
 })

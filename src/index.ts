@@ -11,7 +11,9 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.listen(Number(process.env.PORT), () => {
-    console.log(`Server running on port ${Number(process.env.PORT)}`)
+    console.log(`Server running on port ${Number(
+        process.env.PORT
+    )}`)
 })
 app.use('/users', usersRouter)
 app.use('/products', productsRouter)

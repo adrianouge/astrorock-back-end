@@ -1,6 +1,7 @@
 import { ProductsBusiness } from '../../src/business/ProductsBusiness'
 import {
-    UpdateProductInfoInput, UpdateProductInfoOutput,
+    UpdateProductInfoInput,
+    UpdateProductInfoOutput,
     ProductsDTO
 } from '../../src/dtos/ProductsDTO'
 import { ProductsDatabaseMock } from '../mocks/ProductsDatabaseMock'
@@ -14,7 +15,8 @@ describe("updateProductInfo", () => {
         new TokenManagerAdminMock(),
         new IdGeneratorMock()
     )
-    test("deve retornar mensagem confirmando sucesso de atualização", async () => {
+    test("deve retornar mensagem confirmando sucesso de atualização de informações do produto",
+    async () => {
         expect.assertions(2)
         const userToken = 'token-mock'
         const productId = 'product-id-mock'
@@ -34,8 +36,10 @@ describe("updateProductInfo", () => {
         }
         const response: UpdateProductInfoOutput = await productsBusiness.updateProductInfo(input)
         const updatedProduct = response.updatedProduct
-        expect(response.message).toBe(`O produto foi atualizado com sucesso em ${updatedProduct.updated_at}`)
-        expect(response.updatedProduct).toStrictEqual(updatedProduct)
+        expect(response.message)
+        .toBe(`O produto foi atualizado com sucesso em ${updatedProduct.updated_at}`)
+        expect(response.updatedProduct)
+        .toStrictEqual(updatedProduct)
     }
     )
 })

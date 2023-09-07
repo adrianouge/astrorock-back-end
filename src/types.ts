@@ -7,7 +7,6 @@ export interface productDB {
     created_at: string,
     updated_at: string
 }
-
 export interface userDB {
     id: string,
     name: string,
@@ -17,7 +16,6 @@ export interface userDB {
     created_at: string,
     updated_at: string
 }
-
 export interface userUpdatedDB {
     id: string,
     name: string,
@@ -26,13 +24,11 @@ export interface userUpdatedDB {
     createdAt: string,
     updatedAt: string
 }
-
 export interface cartDB {
     cartOwner: string,
     productId: string,
     productsAmount: string
 }
-
 export interface orderDB {
     id: string,
     status: string,

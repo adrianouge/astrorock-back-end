@@ -4,7 +4,8 @@ import { CartsDatabaseMock } from '../mocks/CartsDatabaseMock'
 import { TokenManagerAdminMock } from '../mocks/TokenManagerAdminMock'
 import { CartsDTO } from '../../src/dtos/CartsDTO'
 import {
-    DeductProductFromCartInput, DeductProductFromCartOutput
+    DeductProductFromCartInput,
+    DeductProductFromCartOutput
 } from '../../src/dtos/CartsDTO'
 describe("deductProductFromCart", () => {
     const cartsBusiness = new CartsBusiness(
@@ -13,12 +14,16 @@ describe("deductProductFromCart", () => {
         new TokenManagerAdminMock,
         new CartsDTO
     )
-    test("", async () => {
+    test("deve retornar mensagem de dedução bem sucedida de produto do carrinho", async () => {
+        expect.assertions(2)
         const input: DeductProductFromCartInput = {
             userToken: "token-mock",
             productId: "produto-id-mock"
         }
         const response: DeductProductFromCartOutput = await cartsBusiness.deductProductFromCart(input)
-        expect(response.message).toBe(`O produto Produto mock foi removido do seu carrinho.`)
+        expect(response.message)
+            .toBe(`O produto foi removido do seu carrinho.`)
+        expect(response.removedProduct)
+            .toBe('Produto mock')
     })
 })

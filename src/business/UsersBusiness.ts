@@ -1,12 +1,18 @@
 import { UsersDatabase } from "../database/UsersDatabase";
 import {
     UsersDTO,
-    CreateNewUserInput, CreateNewUserOutput,
-    LoginUserInput, LoginUserOutput,
-    GetUserByIdInput, GetUserByIdOutput,
-    ChangeUsersEmailInput, ChangeUsersEmailOutput,
-    ChangeUsersPasswordInput, ChangeUsersPasswordOutput,
-    DeleteUserInput, DeleteUserOutput
+    CreateNewUserInput,
+    CreateNewUserOutput,
+    LoginUserInput,
+    LoginUserOutput,
+    GetUserByIdInput,
+    GetUserByIdOutput,
+    ChangeUsersEmailInput,
+    ChangeUsersEmailOutput,
+    ChangeUsersPasswordInput,
+    ChangeUsersPasswordOutput,
+    DeleteUserInput,
+    DeleteUserOutput
 } from "../dtos/UsersDTO";
 import { userDB } from "../types";
 import { IdGenerator } from "../services/IdGenerator";
@@ -15,7 +21,7 @@ import { TokenManager, TokenPayLoad } from "../services/TokenManager";
 import { BadRequestError } from "../errors/BadRequestError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { NotFoundError } from "../errors/NotFoundError";
-import { UnexpectedError } from "../errors/UnexpectedError";
+
 export class UsersBusiness {
     constructor(
         private usersDatabase: UsersDatabase,
@@ -25,7 +31,11 @@ export class UsersBusiness {
         private tokenManager: TokenManager
     ) { }
     public createNewUser = async (input: CreateNewUserInput) => {
-        const { name, email, password } = input
+        const {
+            name,
+            email,
+            password
+        } = input
         const emailAlreadyInUse = await this.usersDatabase.getUserByEmail(email)
         if (emailAlreadyInUse) {
             throw new BadRequestError("Já existe uma conta registrada com a conta informada.")
@@ -50,7 +60,10 @@ export class UsersBusiness {
         return output
     }
     public loginUser = async (input: LoginUserInput) => {
-        const { email, password } = input
+        const {
+            email,
+            password
+        } = input
         const userInfoMatched = await this.usersDatabase.loginUser(email, password)
         if (!userInfoMatched) {
             throw new BadRequestError("Não há usuários registrados com o email e senha informados.")
@@ -74,7 +87,10 @@ export class UsersBusiness {
         return output
     }
     public getUserById = async (input: GetUserByIdInput) => {
-        const { userToken, idSearched } = input
+        const {
+            userToken,
+            idSearched
+        } = input
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
             throw new NotFoundError("Token inválido.")
@@ -90,7 +106,10 @@ export class UsersBusiness {
         return output
     }
     public changeUsersEmail = async (input: ChangeUsersEmailInput) => {
-        const { userToken, newEmail } = input
+        const {
+            userToken,
+            newEmail
+        } = input
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
             throw new NotFoundError("Token inválido.")
@@ -103,7 +122,11 @@ export class UsersBusiness {
         if (emailAlreadyRegistered) {
             throw new BadRequestError("Já existe uma conta registrada com o e-mail informado.")
         }
-        await this.usersDatabase.changeEmail(userToUpdate, newEmail)
+        const newUpdatedAt = new Date().toString()
+        await this.usersDatabase.changeEmail(
+            userToUpdate,
+            newEmail,
+            newUpdatedAt)
         const updatedUser: userDB = {
             id: userToUpdate.id,
             name: userToUpdate.name,
@@ -111,13 +134,16 @@ export class UsersBusiness {
             password: userToUpdate.password,
             role: userToUpdate.role,
             created_at: userToUpdate.created_at,
-            updated_at: userToUpdate.updated_at
+            updated_at: newUpdatedAt
         }
         const output: ChangeUsersEmailOutput = this.usersDTO.changeUsersEmailOutput(updatedUser)
         return output
     }
     public changeUsersPassword = async (input: ChangeUsersPasswordInput) => {
-        const { userToken, newPassword } = input
+        const {
+            userToken,
+            newPassword
+        } = input
         const getPayload = this.tokenManager.getPayload(userToken)
         if (!getPayload) {
             throw new BadRequestError("Token inválido.")
@@ -126,7 +152,12 @@ export class UsersBusiness {
         if (!userChangingPassword) {
             throw new NotFoundError("Informações do usuário trocando de senha não encontradas.")
         }
-        await this.usersDatabase.changePassword(userChangingPassword, newPassword)
+        const newUpdatedAt = new Date().toString()
+        await this.usersDatabase.changePassword(
+            userChangingPassword,
+            newPassword,
+            newUpdatedAt
+        )
         const updatedUser: userDB = {
             id: userChangingPassword.id,
             name: userChangingPassword.name,
@@ -134,7 +165,7 @@ export class UsersBusiness {
             password: newPassword,
             role: userChangingPassword.role,
             created_at: userChangingPassword.created_at,
-            updated_at: userChangingPassword.updated_at
+            updated_at: newUpdatedAt
         }
         const output: ChangeUsersPasswordOutput = this.usersDTO.changeUsersPasswordOutput(updatedUser)
         return output

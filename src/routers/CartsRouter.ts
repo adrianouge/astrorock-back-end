@@ -7,7 +7,6 @@ import { ProductsDatabase } from '../database/ProductsDatabase'
 import { TokenManager } from '../services/TokenManager'
 
 export const cartsRouter = express.Router()
-
 const cartsController = new CartsController(
     new CartsDTO(),
     new CartsBusiness(
@@ -17,7 +16,6 @@ const cartsController = new CartsController(
         new CartsDTO()
     ),
 )
-
 cartsRouter.get('/', cartsController.getCartByUser)
 cartsRouter.post('/', cartsController.addProductToCart)
 cartsRouter.post('/updatecart', cartsController.updateProductAmountInCart)

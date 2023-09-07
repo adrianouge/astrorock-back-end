@@ -1,6 +1,7 @@
 import { ProductsBusiness } from '../../src/business/ProductsBusiness'
 import {
-    DeleteProductByIdInput, DeleteProductByIdOutput,
+    DeleteProductByIdInput,
+    DeleteProductByIdOutput,
     ProductsDTO
 } from '../../src/dtos/ProductsDTO'
 import { ProductsDatabaseMock } from '../mocks/ProductsDatabaseMock'
@@ -14,15 +15,17 @@ describe("deleteProductById", () => {
         new TokenManagerAdminMock(),
         new IdGeneratorMock()
     )
-    test("deve retornar mensagem confirmando sucesso de deleção", async () => {
-        const userToken = 'token-mock'
-        const productId = 'produto-id-mock'
-        const input: DeleteProductByIdInput = {
-            userToken,
-            idToDelete: productId
+    test("deve retornar mensagem confirmando sucesso de deleção do produto",
+        async () => {
+            const userToken = 'token-mock'
+            const productId = 'produto-id-mock'
+            const input: DeleteProductByIdInput = {
+                userToken,
+                idToDelete: productId
+            }
+            const response: DeleteProductByIdOutput = await productsBusiness.deleteProduct(input)
+            expect(response.message)
+                .toBe(`O produto Produto mock foi deletado com sucesso.`)
         }
-        const response: DeleteProductByIdOutput = await productsBusiness.deleteProduct(input)
-        expect(response.message).toBe(`O produto Produto mock foi deletado com sucesso.`)
-    }
     )
 })

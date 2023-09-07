@@ -6,11 +6,10 @@ export class OrdersDatabaseMock extends BaseDatabase {
     public static TABLE_USERS = 'users'
     public static TABLE_PRODUCTS = 'products'
     public static TABLE_CARTS = 'carts'
-
     dbConnection = BaseDatabase.connection
+
     public createNewOrder = async (newOrderMock: orderDB): Promise<void> => {
     }
-
     public getOrderById = async (orderIdMock: string): Promise<orderDB | undefined> => {
         const foundOrderMock: orderDB = {
             id: 'order-id-mock',
@@ -22,12 +21,10 @@ export class OrdersDatabaseMock extends BaseDatabase {
             paid: 0,
             paymentDate: 'nunca'
         }
-
         if (orderIdMock === 'order-id-mock') {
             return foundOrderMock
         }
     }
-
     public getOrdersByUser = async (userIdMock: string): Promise<orderDB[] | undefined[]> => {
         const foundOrderMock: orderDB = {
             id: 'order-id-mock',
@@ -49,7 +46,10 @@ export class OrdersDatabaseMock extends BaseDatabase {
             paid: 1,
             paymentDate: 'data-mock'
         }
-        const ordersFoundByUser: orderDB[] = [foundOrderMock, foundOrder2Mock]
+        const ordersFoundByUser: orderDB[] = [
+            foundOrderMock,
+            foundOrder2Mock
+        ]
         if (userIdMock === 'usuario-id-mock') {
             return ordersFoundByUser
         }
@@ -58,10 +58,8 @@ export class OrdersDatabaseMock extends BaseDatabase {
             return noOrders
         }
     }
-
     public updateOrder = async (updatedOrderMock: orderDB): Promise<void> => {
     }
-
     public deleteOrder = async (orderToDeleteMock: string): Promise<void> => {
     }
 } 
