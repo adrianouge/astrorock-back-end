@@ -46,7 +46,7 @@ export class UsersBusiness {
             name,
             email,
             password: hashedPassword,
-            role: "Admin",
+            role: "Normal",
             created_at: new Date().toISOString(),
             updated_at: "Never"
         }
