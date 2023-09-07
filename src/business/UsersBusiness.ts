@@ -38,7 +38,7 @@ export class UsersBusiness {
         } = input
         const emailAlreadyInUse = await this.usersDatabase.getUserByEmail(email)
         if (emailAlreadyInUse) {
-            throw new BadRequestError("Já existe uma conta registrada com a conta informada.")
+            throw new BadRequestError("Já existe uma conta registrada com o e-mail informada.")
         }
         const hashedPassword = await this.hashManager.hash(password)
         const newUser: userDB = {
