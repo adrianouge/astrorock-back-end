@@ -64,24 +64,28 @@ export class UsersBusiness {
             email,
             password
         } = input
-        const userInfoMatched = await this.usersDatabase.loginUser(email, password)
-        if (!userInfoMatched) {
-            throw new BadRequestError("Não há usuários registrados com o email e senha informados.")
+        const userToLogin = await this.usersDatabase.getUserByEmail(email)
+        if (!userToLogin) {
+            throw new BadRequestError("Não há usuários registrados com e-mail e senha informados.")
+        }
+        const checkPassword = this.hashManager.compare(password, userToLogin.password)
+        if (!checkPassword) {
+            throw new BadRequestError("Não há usuários registrados com esse e-mail e senha.")
         }
         const payload: TokenPayLoad = {
-            id: userInfoMatched.id,
-            name: userInfoMatched.name,
-            role: userInfoMatched.role
+            id: userToLogin.id,
+            name: userToLogin.name,
+            role: userToLogin.role
         }
         const userToken = this.tokenManager.createToken(payload)
         const userLoggedIn: userDB = {
-            id: userInfoMatched.id,
-            name: userInfoMatched.name,
-            email: userInfoMatched.email,
-            password: userInfoMatched.password,
-            role: userInfoMatched.role,
-            created_at: userInfoMatched.created_at,
-            updated_at: userInfoMatched.updated_at
+            id: userToLogin.id,
+            name: userToLogin.name,
+            email: userToLogin.email,
+            password: userToLogin.password,
+            role: userToLogin.role,
+            created_at: userToLogin.created_at,
+            updated_at: userToLogin.updated_at
         }
         const output: LoginUserOutput = this.usersDTO.loginUserOutput(userLoggedIn, userToken)
         return output
