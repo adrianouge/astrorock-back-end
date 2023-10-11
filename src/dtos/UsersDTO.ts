@@ -16,6 +16,7 @@ export interface LoginUserInput {
 }
 export interface LoginUserOutput {
     message: string,
+    userName: string,
     userToken: string
 }
 export interface GetUserByIdInput {
@@ -103,7 +104,8 @@ export class UsersDTO {
         userToken: string
     ): LoginUserOutput {
         const dto: LoginUserOutput = {
-            message: `Bom te ver novamente, ${userLoggedIn.name}.`,
+            message: `Bom te ver de novo, ${userLoggedIn.name}.`,
+            userName: userLoggedIn.name,
             userToken
         }
         return dto

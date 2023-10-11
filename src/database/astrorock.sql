@@ -4,6 +4,7 @@ CREATE TABLE
     products (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
         name TEXT UNIQUE NOT NULL,
+        img_url TEXT UNIQUE NOT NULL,
         description TEXT NOT NULL,
         price INTEGER NOT NULL,
         amount_in_stock INTEGER NOT NULL,
