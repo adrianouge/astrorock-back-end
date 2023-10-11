@@ -32,6 +32,7 @@ export class ProductsBusiness {
         const {
             userToken,
             name,
+            imgUrl,
             description,
             price,
             amountInStock
@@ -50,11 +51,12 @@ export class ProductsBusiness {
         const newProduct: productDB = {
             id: this.idGenerator.generate(),
             name,
+            img_url: imgUrl,
             description,
             price,
             amount_in_stock: amountInStock,
             created_at: new Date().toISOString(),
-            updated_at: "Never"
+            updated_at: "Nunca"
         }
         await this.productsDatabase.registerNewProduct(newProduct)
         const output: RegisterNewProductOutput = this.productsDTO.registerNewProductOutput(newProduct)
@@ -98,6 +100,7 @@ export class ProductsBusiness {
         const { userToken,
             productId,
             productName,
+            productImgUrl,
             productDescription,
             productPrice,
             productAmountInStock,
@@ -109,6 +112,7 @@ export class ProductsBusiness {
         const productUpdatedInfo: productDB = {
             id: productId,
             name: productName,
+            img_url: productImgUrl,
             description: productDescription,
             price: productPrice,
             amount_in_stock: productAmountInStock,

@@ -3,6 +3,7 @@ import {productDB } from "../types";
 
 export interface RegisterNewProductInput {
     userToken: string,
+    imgUrl: string,
     name: string,
     description: string,
     price: number
@@ -35,6 +36,7 @@ export interface UpdateProductInfoInput {
     userToken: string,
     productId: string,
     productName: string,
+    productImgUrl: string,
     productDescription: string,
     productPrice: number,
     productAmountInStock: number,
@@ -55,6 +57,7 @@ export interface DeleteProductByIdOutput {
 export class ProductsDTO {
     public registerNewProductInput(
         userToken: unknown,
+        imgUrl: unknown,
         name: unknown,
         description: unknown,
         price: unknown,
@@ -64,6 +67,9 @@ export class ProductsDTO {
         }
         if (typeof name !== "string") {
             throw new BadRequestError("O nome do novo produto deve ser do tipo 'string'.")
+        }
+        if (typeof imgUrl !== "string") {
+            throw new BadRequestError("O url da imagem do novo produto deve ser do tipo 'string'.")
         }
         if (typeof description !== "string") {
             throw new BadRequestError("A descrição do novo produto deve ser do tipo 'string'.")
@@ -77,6 +83,7 @@ export class ProductsDTO {
         const dto: RegisterNewProductInput = {
             userToken,
             name,
+            imgUrl,
             description,
             price,
             amountInStock
@@ -144,6 +151,7 @@ export class ProductsDTO {
     public updateProductInfoInput(userToken: unknown,
         productId: unknown,
         productName: unknown,
+        productImgUrl: unknown,
         productDescription: unknown,
         productPrice: unknown,
         productAmountInStock: unknown,
@@ -156,6 +164,9 @@ export class ProductsDTO {
         }
         if (typeof productName !== "string") {
             throw new BadRequestError("O nome do produto deve ser do tipo 'string'.")
+        }
+        if (typeof productImgUrl !== "string") {
+            throw new BadRequestError("O novo link da imagem do produto deve ser do tipo 'string'.")
         }
         if (typeof productDescription !== "string") {
             throw new BadRequestError("A descrição do produto deve ser do tipo 'string'.")
@@ -173,6 +184,7 @@ export class ProductsDTO {
             userToken,
             productId,
             productName,
+            productImgUrl,
             productDescription,
             productPrice,
             productAmountInStock,

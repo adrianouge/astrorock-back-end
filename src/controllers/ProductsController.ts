@@ -29,6 +29,7 @@ export class ProductsController {
             const userToken = req.headers.authorization
             const {
                 name,
+                imgUrl,
                 description,
                 price,
                 amountInStock
@@ -37,6 +38,7 @@ export class ProductsController {
             const amountInStockAsNumber = Number(amountInStock)
             const input: RegisterNewProductInput = this.productsDTO.registerNewProductInput(
                 userToken,
+                imgUrl,
                 name,
                 description,
                 priceAsNumber,
@@ -106,6 +108,7 @@ export class ProductsController {
             const {
                 productId,
                 productName,
+                productImgUrl,
                 productDescription,
                 productPrice,
                 productAmountInStock,
@@ -116,6 +119,7 @@ export class ProductsController {
                     userToken,
                     productId,
                     productName,
+                    productImgUrl,
                     productDescription,
                     productPrice,
                     productAmountInStock,

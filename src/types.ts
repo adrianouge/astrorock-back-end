@@ -1,6 +1,7 @@
 export interface productDB {
     id: string,
     name: string,
+    img_url: string,
     description: string,
     price: number,
     amount_in_stock: number,
