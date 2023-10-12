@@ -14,8 +14,9 @@ export class CartsDatabase extends BaseDatabase {
     }
     public async addProductToCart(usersCartProductAdded: cartDB): Promise<void> {
         await this
-            .dbConnection(CartsDatabase.TABLE_CARTS)
+            .dbConnection
             .insert(usersCartProductAdded)
+            .into(CartsDatabase.TABLE_CARTS)
     }
     public async updateCart(newCart: cartDB): Promise<void> {
         await this
