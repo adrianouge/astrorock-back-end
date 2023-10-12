@@ -58,12 +58,13 @@ CREATE TABLE
     orders (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
         status TEXT NOT NULL,
+        buyer_id TEXT NOT NULL,
         products_purchased TEXT NOT NULL,
         products_amount TEXT NOT NULL,
-        total_price INTEGER NOT NULL,
         purchase_date TEXT DEFAULT(DATETIME('now', 'localtime')) NOT NULL,
         paid INTEGER DEFAULT(0) NOT NULL,
-        payment_date TEXT DEFAULT('NÃO PAGO') NOT NULL
+        payment_date TEXT DEFAULT('NÃO PAGO') NOT NULL,
+        FOREIGN KEY (buyer_id) REFERENCES users(id)
     );
 
 DROP TABLE products;

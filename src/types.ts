@@ -33,10 +33,10 @@ export interface cartDB {
 export interface orderDB {
     id: string,
     status: string,
-    userId: string,
-    productsId: string,
-    productsAmount: string,
-    purchaseDate: string,
+    buyer_id: string,
+    products_purchased: string,
+    products_amount: string,
+    purchase_date: string,
     paid: number,
-    paymentDate: string
+    payment_date: string
 }

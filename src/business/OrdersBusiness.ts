@@ -41,9 +41,9 @@ export class OrdersBusiness {
                 throw new NotFoundError("Nenhum produto foi adicionado pelo usuário ao carrinho para finalizar a compra.")
             }
             else {
-                cartOwner = i.cartOwner
-                productsInCart = `${productsInCart}` + `${i.productId}`
-                productsAmount = `${productsAmount}` + `${i.productsAmount}`
+                cartOwner = i.cart_owner
+                productsInCart = `${productsInCart}` + `${i.product_id}`
+                productsAmount = `${productsAmount}` + `${i.product_amount}`
             }
         })
         if (cartOwner === ``) {
@@ -52,12 +52,12 @@ export class OrdersBusiness {
         const newOrder: orderDB = {
             id: this.idGenerator.generate(),
             status: "Em processo",
-            userId: cartOwner,
-            productsId: productsInCart,
-            productsAmount,
-            purchaseDate: new Date().toString(),
+            buyer_id: cartOwner,
+            products_purchased: productsInCart,
+            products_amount: productsAmount,
+            purchase_date: new Date().toString(),
             paid: 0,
-            paymentDate: "Aguardando pagamento"
+            payment_date: "Aguardando pagamento"
         }
         await this.ordersDatabase.createNewOrder(newOrder)
         const output: CreateNewOrderOutput = this.ordersDTO.createNewOrderOutput(newOrder)
@@ -108,12 +108,12 @@ export class OrdersBusiness {
         const orderUpdated: orderDB = {
             id: orderToUpdate.id,
             status: "Pago",
-            userId: orderToUpdate.userId,
-            productsId: orderToUpdate.productsId,
-            productsAmount: orderToUpdate.productsAmount,
-            purchaseDate: orderToUpdate.purchaseDate,
+            buyer_id: orderToUpdate.buyer_id,
+            products_purchased: orderToUpdate.products_purchased,
+            products_amount: orderToUpdate.products_amount,
+            purchase_date: orderToUpdate.purchase_date,
             paid: paidStatus,
-            paymentDate: new Date().toString()
+            payment_date: new Date().toString()
         }
         await this.ordersDatabase.updateOrder(orderUpdated)
         const output: UpdateOrderOutput = this.ordersDTO.updateOrderOutput(orderUpdated)
@@ -132,7 +132,7 @@ export class OrdersBusiness {
         if (!orderToDelete) {
             throw new NotFoundError("Compra para ser deletada não foi encontrada.")
         }
-        if (userPayload.id !== orderToDelete.userId) {
+        if (userPayload.id !== orderToDelete.buyer_id) {
             throw new UnauthorizedError("Apenas o usuário quem finalizou a compra pode deleta-la.")
         }
         await this.ordersDatabase.deleteOrder(orderToDelete.id)
