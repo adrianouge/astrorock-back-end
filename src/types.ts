@@ -28,7 +28,7 @@ export interface userUpdatedDB {
 export interface cartDB {
     cartOwner: string,
     productId: string,
-    productsAmount: string
+    productsAmount: number
 }
 export interface orderDB {
     id: string,

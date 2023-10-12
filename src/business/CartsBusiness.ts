@@ -63,7 +63,7 @@ export class CartsBusiness {
         const newProductAmountInCart: cartDB = {
             cartOwner: userPayload.id,
             productId: productToUpdateAmount.id,
-            productsAmount: newProductAmount.toString()
+            productsAmount: Number(newProductAmount)
         }
         await this.cartsDatabase.updateCart(newProductAmountInCart)
         const output: UpdateProductAmountInCartOutput = this.cartsDTO.updateProductAmountOutput(productToUpdateAmount.name, newProductAmount)
