@@ -49,7 +49,7 @@ CREATE TABLE
     carts (
         cart_owner TEXT UNIQUE NOT NULL,
         product_id TEXT UNIQUE NOT NULL,
-        product_amount INTEGER DEFAULT(0) NOT NULL,
+        product_amount INTEGER NOT NULL,
         FOREIGN KEY(cart_owner) REFERENCES users(id),
         FOREIGN KEY (product_id) REFERENCES products(id)
     );
