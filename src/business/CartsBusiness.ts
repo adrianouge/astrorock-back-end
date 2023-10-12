@@ -40,7 +40,7 @@ export class CartsBusiness {
         const usersCartProductAdded: cartDB = {
             cartOwner: userPayload.id,
             productId,
-            productsAmount: productAmount
+            productsAmount: Number(productAmount)
         }
         await this.cartsDatabase.addProductToCart(usersCartProductAdded)
         const output: AddProductToCartOutput = this.cartsDTO.addProductToCartOutput(productToAdd.name, productAmount)
