@@ -23,8 +23,8 @@ export class CartsDatabase extends BaseDatabase {
             .dbConnection(CartsDatabase.TABLE_CARTS)
             .update({ newCart })
             .where({
-                cart_owner: newCart.cartOwner,
-                product_id: newCart.productId
+                cart_owner: newCart.cart_owner,
+                product_id: newCart.product_id
             })
 
     }
