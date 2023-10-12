@@ -12,6 +12,28 @@ CREATE TABLE
         updated_at TEXT
     );
 
+INSERT INTO
+    products(
+        id,
+        name,
+        img_url,
+        description,
+        price,
+        amount_in_stock,
+        created_at,
+        updated_at
+    )
+VALUES (
+        "id-novo",
+        "Meteorito de Ferro",
+        "https://i.ibb.co/sPhhv62/Meteorito-De-Ferro.png",
+        "É de ferro! Do espaço!",
+        150,
+        20,
+        "12/10/2023",
+        "Nunca"
+    );
+
 CREATE TABLE
     users (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
