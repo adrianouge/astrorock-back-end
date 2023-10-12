@@ -38,9 +38,9 @@ export class CartsBusiness {
             throw new NotFoundError("Produto para adicionar ao carrinho não foi encontrado.")
         }
         const usersCartProductAdded: cartDB = {
-            cartOwner: userPayload.id,
-            productId,
-            productsAmount: Number(productAmount)
+            cart_owner: userPayload.id,
+            product_id: productId,
+            product_amount: Number(productAmount)
         }
         await this.cartsDatabase.addProductToCart(usersCartProductAdded)
         const output: AddProductToCartOutput = this.cartsDTO.addProductToCartOutput(productToAdd.name, productAmount)
@@ -61,9 +61,9 @@ export class CartsBusiness {
             throw new NotFoundError("Produto para atualizar quantidade não encontrado.")
         }
         const newProductAmountInCart: cartDB = {
-            cartOwner: userPayload.id,
-            productId: productToUpdateAmount.id,
-            productsAmount: Number(newProductAmount)
+            cart_owner: userPayload.id,
+            product_id: productToUpdateAmount.id,
+            product_amount: Number(newProductAmount)
         }
         await this.cartsDatabase.updateCart(newProductAmountInCart)
         const output: UpdateProductAmountInCartOutput = this.cartsDTO.updateProductAmountOutput(productToUpdateAmount.name, newProductAmount)

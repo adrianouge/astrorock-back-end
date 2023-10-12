@@ -26,9 +26,9 @@ export interface userUpdatedDB {
     updatedAt: string
 }
 export interface cartDB {
-    cartOwner: string,
-    productId: string,
-    productsAmount: number
+    cart_owner: string,
+    product_id: string,
+    product_amount: number
 }
 export interface orderDB {
     id: string,
