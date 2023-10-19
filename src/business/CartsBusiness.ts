@@ -75,7 +75,8 @@ export class CartsBusiness {
         if (!userPayload) {
             throw new BadRequestError("Token inválido para pegar o carrinho do usuário.")
         }
-        const [usersCart] = await this.cartsDatabase.getCartByOwner(userPayload.id)
+        const usersCartArray = await this.cartsDatabase.getCartByOwner(userPayload.id)
+        const [usersCart] = usersCartArray
         if (!usersCart) {
             throw new NotFoundError("Usuário ainda não adicionou produtos ao carrinho.")
         }
