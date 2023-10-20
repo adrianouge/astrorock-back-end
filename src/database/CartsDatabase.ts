@@ -21,9 +21,10 @@ export class CartsDatabase extends BaseDatabase {
     public async updateCart(newProductAmountInCart: cartDB): Promise<void> {
         const cart_owner = newProductAmountInCart.cart_owner
         const product_id = newProductAmountInCart.product_id
+        const product_amount = newProductAmountInCart.product_amount
         await this
             .dbConnection(CartsDatabase.TABLE_CARTS)
-            .insert(newProductAmountInCart)
+            .update({product_amount})
             .where({
                 cart_owner,
                 product_id
