@@ -23,7 +23,7 @@ export class CartsDatabase extends BaseDatabase {
         const product_id = newProductAmountInCart.product_id
         await this
             .dbConnection(CartsDatabase.TABLE_CARTS)
-            .update({ newProductAmountInCart })
+            .insert(newProductAmountInCart)
             .where({
                 cart_owner,
                 product_id
