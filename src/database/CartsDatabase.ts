@@ -18,7 +18,7 @@ export class CartsDatabase extends BaseDatabase {
             .insert(usersCartProductAdded)
             .into(CartsDatabase.TABLE_CARTS)
     }
-    public async updateCart(newCart: cartDB): Promise<void> {
+    public async updateCart(newProductAmountInCart: cartDB): Promise<void> {
         await this
             .dbConnection(CartsDatabase.TABLE_CARTS)
             .update({ newCart })
